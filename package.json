@@ -21,6 +21,7 @@
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "mysql2": "^1.4.2",
-    "sequelize": "^4.8.4"
+    "sequelize": "^4.8.4",
+    "twilio": "^3.6.7"
   }
 }
