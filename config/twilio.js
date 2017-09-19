@@ -5,8 +5,9 @@ let client = new twilio(keys.twilio.accountSid, keys.twilio.authToken);
 
 console.log("Twilio service connected");
 
-// Our Twilio phone number - '+1902220114'
+// Our Twilio phone number - '+19802220114'
 
+//==================| Example |=======================
 // client.messages.create({
 //   body: 'Hello from Node',
 //   to: '+17049062487',  // Text this number
