@@ -1,9 +1,8 @@
-
+// require the Twilio API SMS notification service
 const sms = require('../config/twilio');
 const senderNumber = '+19802220114';
 
-
-//========================| API Routes |======================
+//========================================| API Routes |========================================
 
 module.exports = function(app) {
   // placeholder code
