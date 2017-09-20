@@ -11,8 +11,8 @@ module.exports = function(app) {
   app.get('/api', (req, res) => {
     console.log("ROUTED");
     sms.messages.create({
-      body: 'TEST MESSAGE',
-      to: '+17049062487',  // For testing - replace this with data from the user account later
+      body: 'HI DZMITRY :D',
+      to: '+17046146046',  // For testing - replace this with data from the user account later
       from: senderNumber
     })
     .then((message) => res.send(message.sid));
