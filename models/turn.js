@@ -1,0 +1,17 @@
+module.exports = function(sequelize, DataTypes) {
+  var turns = sequelize.define('turns', {
+    startingPos: DataTypes.INTEGER,
+    roll: DataTypes.INTEGER,
+    endingPos: DataTypes.INTEGER,
+    turn: DataTypes.INTEGER,
+  })
+
+  turns.associate = function(models) {
+    turns.belongsTo(models.games, {});
+    turns.hasOne(models.choices, {});
+    turns.belongsTo(models.players, {});
+    turns.hasOne(models.puzzles, {});
+  }
+
+  return turns;
+}
