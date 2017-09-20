@@ -1,10 +1,14 @@
 module.exports = function(sequelize, DataTypes) {
-    var Items = sequelize.define('items', {
+    var items = sequelize.define('items', {
         itemName: DataTypes.STRING,
         itemRhyme: DataTypes.STRING,
-        itemHints: DataTypes.STRING,
-        itemType: DataTypes.STRING,
+        itemDescription: DataTypes.STRING,
         itemsImageURL: DataTypes.STRING,
     });
-    return Items;
+
+    items.associate = function(models) {
+        // ??
+    }
+
+    return items;
 };

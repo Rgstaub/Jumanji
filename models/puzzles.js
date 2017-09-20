@@ -1,12 +1,15 @@
 module.exports = function(sequelize, DataTypes) {
-    var Puzzles = sequelize.define('puzzles', {
-        puzzleName: DataTypes.STRING,
-        puzzleRhyme: DataTypes.STRING,
-        puzzleOptions: DataTypes.STRING,
-        puzzleSolution: DataTypes.STRING,
-        puzzleSuccess: DataTypes.STRING,
-        puzzleFail: DataTypes.STRING,
-        puzzleSound: DataTypes.STRING,
+    var puzzles = sequelize.define('puzzles', {
+        puzzleRhyme: DataTypes.TEXT,
+        puzzleScenario: DataTypes.TEXT,
+        puzzleImageUrl: DataTypes.STRING
     });
-    return Puzzles;
+
+    puzzles.associate = function(models) {
+        puzzles.hasMany(models.choices, {
+            
+        })
+    }
+
+    return puzzles;
 };
