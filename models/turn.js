@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
   })
 
   turns.associate = function(models) {
-    turns.belongsTo(models.games, {});
+    turns.belongsTo(models.players, {});
     turns.hasOne(models.choices, {});
     turns.belongsTo(models.players, {});
     turns.hasOne(models.puzzles, {});

@@ -4,8 +4,9 @@ module.exports = function(sequelize, DataTypes) {
   })
 
   inventories.associate = function(models) {
-    inventories.belongsTo(models.games, {});
+    // inventories.belongsTo(models.games, {});
     inventories.belongsTo(models.players, {});
+    inventories.hasMany(models.items, {});
   }
 
   return inventories;

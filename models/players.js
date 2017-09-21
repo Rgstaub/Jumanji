@@ -1,19 +1,14 @@
 module.exports = function(sequelize, DataTypes) {
   var players = sequelize.define('players', {
-    name: DataTypes.STRING,
-    email: {
-      type: DataTypes.STRING,
-      validate: {
-        isEmail: true
-      }
-    },
-    phone: DataTypes.STRING
+    turn: DataTypes.INTEGER,
+    avatar: DataTypes.STRING,
+    position: DataTypes.INTEGER
   })
 
   players.associate = function(models) {
-    players.hasMany(models.games, {});
+    players.hasMany(models.inventories, {});
+    players.belongsTo(models.games, {});
     players.hasMany(models.turns, {});
-    players.hasMany(models.inventories, {})
   }
 
   return players;
