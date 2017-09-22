@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     items.associate = function(models) {
-        // ??
+        items.belongsTo(models.inventories);
     }
 
     return items;

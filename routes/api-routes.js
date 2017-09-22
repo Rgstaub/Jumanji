@@ -2,6 +2,8 @@
 const sms = require('../config/twilio');
 const senderNumber = '+19802220114';
 
+const db = require('../models/')
+
 //========================================| API Routes |========================================
 
 module.exports = function(app) {
@@ -16,6 +18,10 @@ module.exports = function(app) {
       from: senderNumber
     })
     .then((message) => res.send(message.sid));
+  })
+
+  app.get('/', (req, res) => {
+    db.create()
   })
 
 }

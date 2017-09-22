@@ -9,6 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     players.hasMany(models.inventories, {});
     players.belongsTo(models.games, {});
     players.hasMany(models.turns, {});
+   //players.hasOne(models.users, {});
   }
 
   return players;

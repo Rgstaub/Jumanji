@@ -47,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
     //   onDelete: "cascade"
     // });
     games.hasMany(models.players, {
-      onDelete: "cascade"
+      
     });
 
   };
