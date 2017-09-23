@@ -19,10 +19,17 @@ module.exports = (app) => {
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$      PRODUCTION AREA      $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 // From clicking the "Create New Game" button on the home page. Redirect to game creation page
+
+
+//========== Move these to HTML Routes =========
+app.get('/', (req, res) => {
+  res.redirect('index.html');
+})
+
 app.get('/creategame', (req, res) => {
   res.redirect('creategame.html');
 })
-
+//=============================================
 
 app.get('/joingame/findgames', (req, res) => {
   db.games.findAll({
@@ -88,8 +95,8 @@ app.get('/joingame/findgames', (req, res) => {
           gameId: req.params.gameId,
           avatar: req.params.avatar
         }).then( response => {
-          
-          res.send(setPlayerName(response));
+          setPlayerName(response)
+          res.send("done");
         })
       } 
       else {
