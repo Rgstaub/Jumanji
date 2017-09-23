@@ -1,6 +1,6 @@
 body, html {
     height: 100%;
-    background-color: black;
+    
     background-image: url("../img/jungle-background-wallpaper-download-wallpapers-6.jpeg");
     background-position: center;
     background-repeat: no-repeat;
@@ -14,3 +14,78 @@ body, html {
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
+
+.bodyDiv
+ {
+    height: 350px;
+    width: 85%;
+    background-color: grey;
+    border-style: solid;
+    border-width: 10px;
+    color: white;
+    border-color: #00602f;   
+
+}
+
+.jumbo{
+    background-image: url("../img/pantheronlimb.jpg");
+    background-size: 100%;
+    color: white;
+     z-index: 1;
+}
+
+.avatarDiv{
+
+}
+
+#whiteJumbo{
+    color: white;
+
+}
+
+    .bodyDiv {
+        height: 355px;
+        width: 85%;
+        background-color: grey;
+        border-style: solid;
+        border-width: 10px;
+        color: white;
+        border-color: #00602f;
+        overflow: scroll;
+    }
+
+    .chooseYourAvatarDiv {
+        height: 355px;
+        width: 85%;
+        background-color: grey;
+        border-style: solid;
+        border-width: 10px;
+        
+        border-color: #00602f;
+        
+    }
+
+
+    .avatarImages:hover {
+
+        height: 110px;
+        background-color: red;
+    }
+
+    .joinableGamesTable .bodyDiv {
+
+        overflow: scroll;
+        height:100%;
+    }
+
+    .gameNameDiv {
+        height: 50%;
+    }
+
+    .whiteText {
+        color: white;
+    }
+
+    #whiteJumanji{
+        color:white;
+    }
