@@ -26,8 +26,12 @@ app.get('/', (req, res) => {
   res.redirect('index.html');
 })
 
-app.get('/creategame', (req, res) => {
-  res.redirect('creategame.html');
+app.get('/create', (req, res) => {
+  res.redirect('create.html');
+})
+
+app.get('/join', (req, res) => {
+  res.redirect('join.html')
 })
 //=============================================
 
@@ -53,9 +57,17 @@ app.get('/joingame/findgames', (req, res) => {
   })
 })
 
-// This
+// This creates a new games based on input from the front-end
+//  %%%%% CHANGE TO POST %%%%%%
+app.get('/create/add/:gameName/:numPlayers', (req, res) => {
+  db.games.create({
+    gameName: req.params.gameName,
+    numPlayers: req.params.numPlayers,
+  }).then( response => res.send(response) );
+})
 
 // This adds a player for the active user into the specified game
+// %%%%%  CHANGE TO POST  %%%%%%
 app.get('/joingame/select/:gameId', (req, res) => {
   // Check if a player with matching gameId and userId already exists before creating a new one
   db.players.findAll({
@@ -173,7 +185,6 @@ app.get('/joingame/select/:gameId', (req, res) => {
       res.send(players);
     })  
   })
-
 }
 
 //======================================================================================================|
@@ -194,4 +205,8 @@ const sortGamesPlayers = (games, players) => {
     data.push(gameObj);
   })
   return data;
+}
+
+const addPlayer = (gameId, userId) => {
+
 }
