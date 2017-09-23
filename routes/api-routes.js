@@ -21,7 +21,7 @@ module.exports = (app) => {
 // From clicking the "Create New Game" button on the home page. Redirect to game creation page
 
 
-//========== Move these to HTML Routes =========
+//========== Move these to HTML Routes ========
 app.get('/', (req, res) => {
   res.redirect('index.html');
 })
@@ -31,6 +31,8 @@ app.get('/creategame', (req, res) => {
 })
 //=============================================
 
+
+// This returns an array of unstarted games and their properties
 app.get('/joingame/findgames', (req, res) => {
   db.games.findAll({
     where: {
@@ -42,10 +44,40 @@ app.get('/joingame/findgames', (req, res) => {
     db.players.findAll({
       where: {
         gameId: gameIds
-      }
+      },
+      include: [db.users]
     }).then(players => {
-      let sorted = sortGamesPlayers(games, players)
+      let sorted = sortGamesPlayers(games, players);
+      res.json(sorted);
     })
+  })
+})
+
+// This
+
+// This adds a player for the active user into the specified game
+app.get('/joingame/select/:gameId', (req, res) => {
+  // Check if a player with matching gameId and userId already exists before creating a new one
+  db.players.findAll({
+    where: {
+      userId: myData.myId,
+      gameId: req.params.gameId
+    }
+  }).then( result => {
+    // If no match is found, create the new player and set gameId and userId
+    if (result.length === 0) {
+      console.log(`Adding new player with userId: ${myData.myId} to gameId: ${req.params.gameId}`);
+      db.players.create({
+        userId: myData.myId,
+        gameId: req.params.gameId
+      }).then( response => {
+        //setPlayerName(response)
+        res.send("done");
+      })
+    }
+    else {
+      res.send(`Player userId: ${myData.myId} already exists for Game ${req.params.gameId}.`)
+    }
   })
 })
 
@@ -79,7 +111,7 @@ app.get('/joingame/findgames', (req, res) => {
   })
 
   // Change this to POST - Add a player to a given game
-  app.get('/addplayer/:userId/:gameId?/:avatar', (req,res) => {
+  app.get('/addplayer/:userId/:gameId', (req,res) => {
     // Check if a player with matching gameId and userId already exists before creating a new one
     db.players.findAll({
       where: {
@@ -92,13 +124,12 @@ app.get('/joingame/findgames', (req, res) => {
         console.log(`Adding new player with userId: ${req.params.userId} to gameId: ${req.params.gameId}`);
         db.players.create({
           userId: req.params.userId,
-          gameId: req.params.gameId,
-          avatar: req.params.avatar
+          gameId: req.params.gameId
         }).then( response => {
-          setPlayerName(response)
+          //setPlayerName(response)
           res.send("done");
         })
-      } 
+      }
       else {
         res.send(`Player userId: ${req.params.userId} already exists for Game ${req.params.gameId}.`)
       }
@@ -136,7 +167,8 @@ app.get('/joingame/findgames', (req, res) => {
     db.players.findAll({
       where: {
         gameId: gId
-      }
+      },
+      include: [db.users]
     }).then( players => {
       res.send(players);
     })  
@@ -156,29 +188,10 @@ const sortGamesPlayers = (games, players) => {
     gameObj.players = [];
     players.forEach(player => {
       if (player.gameId === game.id) {
-        //player.
+        gameObj.players.push(player.user.name);
       }
     })
+    data.push(gameObj);
   })
-}
-
-const setPlayerName = (player) => {
-  console.log("*****************");
-  console.log(player.userId);
-  db.users.findOne({
-    where: {
-      id: player.userId
-    }
-  }).then(response => {
-    console.log(response.name);
-    db.players.update({
-      name: response.name
-    },
-    {
-      where: {
-        id: player.userId
-      },
-    })
-    .then(response => console.log(response));
-  })
+  return data;
 }
