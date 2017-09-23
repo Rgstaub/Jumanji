@@ -1,18 +1,48 @@
+"use strict"
+
 // require the Twilio API SMS notification service
 const sms = require('../config/twilio');
 const senderNumber = '+19802220114';
 
-// Our Sequelize database connection
+// dependencies
 const db = require('../models/');
+const myData = require('./userdata');
+const path = require('path');
 
-// A module to allow us to run synchronous functions asyncronously
-const async = require('async');
+//==================================================================================================|
+//========================================| API Routes |============================================|
+//==================================================================================================|
 
-//========================================| API Routes |========================================
-
-module.exports = function(app) {
-  // placeholder code
+module.exports = (app) => {
   console.log("API routes have connected");
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$      PRODUCTION AREA      $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+// From clicking the "Create New Game" button on the home page. Redirect to game creation page
+app.get('/creategame', (req, res) => {
+  res.redirect('creategame.html');
+})
+
+
+app.get('/joingame/findgames', (req, res) => {
+  db.games.findAll({
+    where: {
+      state: "waiting"
+    }
+  }).then(games => {
+    let gameIds = [];
+    games.forEach(game => gameIds.push(game.id));
+    db.players.findAll({
+      where: {
+        gameId: gameIds
+      }
+    }).then(players => {
+      let sorted = sortGamesPlayers(games, players)
+    })
+  })
+})
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$       TEST AREA       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
   app.get('/testsms', (req, res) => {
     console.log("Test SMS sent");
@@ -42,7 +72,7 @@ module.exports = function(app) {
   })
 
   // Change this to POST - Add a player to a given game
-  app.get('/addplayer/:userId/:gameId/:avatar', (req,res) => {
+  app.get('/addplayer/:userId/:gameId?/:avatar', (req,res) => {
     // Check if a player with matching gameId and userId already exists before creating a new one
     db.players.findAll({
       where: {
@@ -50,16 +80,18 @@ module.exports = function(app) {
         gameId: req.params.gameId
       }
     }).then( result => {
-      console.log(result);
       // If no match is found, create the new player and set gameId and userId
       if (result.length === 0) {
         console.log(`Adding new player with userId: ${req.params.userId} to gameId: ${req.params.gameId}`);
         db.players.create({
           userId: req.params.userId,
           gameId: req.params.gameId,
-          avatar: req.params.avatar,
-        }).then( response => res.send(response))
-      }
+          avatar: req.params.avatar
+        }).then( response => {
+          
+          res.send(setPlayerName(response));
+        })
+      } 
       else {
         res.send(`Player userId: ${req.params.userId} already exists for Game ${req.params.gameId}.`)
       }
@@ -101,5 +133,45 @@ module.exports = function(app) {
     }).then( players => {
       res.send(players);
     })  
+  })
+
+}
+
+//======================================================================================================|
+//=========================================| FUNCTIONS |================================================|
+//======================================================================================================|
+
+const sortGamesPlayers = (games, players) => {
+  let data = [];
+  games.forEach(game => {
+    let gameObj = {};
+    gameObj.name = game.gameName;
+    gameObj.players = [];
+    players.forEach(player => {
+      if (player.gameId === game.id) {
+        //player.
+      }
+    })
+  })
+}
+
+const setPlayerName = (player) => {
+  console.log("*****************");
+  console.log(player.userId);
+  db.users.findOne({
+    where: {
+      id: player.userId
+    }
+  }).then(response => {
+    console.log(response.name);
+    db.players.update({
+      name: response.name
+    },
+    {
+      where: {
+        id: player.userId
+      },
+    })
+    .then(response => console.log(response));
   })
 }

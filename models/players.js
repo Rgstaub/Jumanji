@@ -2,7 +2,8 @@ module.exports = function(sequelize, DataTypes) {
   var players = sequelize.define('players', {
     turn: DataTypes.INTEGER,
     avatar: DataTypes.STRING,
-    position: DataTypes.INTEGER
+    position: DataTypes.INTEGER,
+    playerName: DataTypes.STRING
   })
 
   players.associate = function(models) {
