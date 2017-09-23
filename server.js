@@ -33,7 +33,7 @@ require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
 
 // Sync the sequelize models and start the app
-db.sequelize.sync({}).then(function() {
+db.sequelize.sync({ }).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
