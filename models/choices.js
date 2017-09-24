@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 
   choices.associate = function(models) {
     choices.belongsTo(models.puzzles, {});
-    choices.belongsTo(models.turns, {});
+    //choices.belongsTo(models.turns, {});
   }
 
   return choices;

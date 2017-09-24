@@ -59,23 +59,23 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
     // Add the new player row to the DB
     jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
       // Set that player's turn to 0
-      jumanji.setPlayerTurn(player.id, 0, (status) => {
+      jumanji.setPlayerPos(player.id, 0, (status) => {
         if (status[0] !== 1) {
           res.send(`You found a bug. Its creepy-crawly eyes peer into your soul.
-          Error: player turn was not set properly when adding to game`)
+          Error: player position was not set properly when adding to game`)
         } else {
           // Set that player's position to 0
-          jumanji.setPlayerPos(player.id, 0, (status) => {
+          jumanji.setPlayerTurn(player.id, 0, (status) => {
             if (status[0] !== 1) {
               res.send(`You found a bug. You want to touch it but you are too scared.
               You big baby.
-              Error: player position was not set properly when adding to game`)
+              Error: player turn was not set properly when adding to game`)
             } else {
               // Check if the game now has filled all its available spot.s. Start if so
               jumanji.checkForStart(req.params.gameId, (start) => {
                 if (start) {
                   // Load the game board
-                  loadTurn(player.id);
+                  jumanji.loadTurn(player.id);
                 } else {
                   res.send("waiting for more player");
                 }
@@ -83,9 +83,8 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
             }
           })
         }
-      });
-      //res.json(data)
-    });
+      })
+    })
   }
 })
 
@@ -119,7 +118,19 @@ app.post('/createuser', (req, res) => {
     }).then( response => res.send(response) );
   })
 
+  app.get('/createpuzzle/:flavor', (req, res) => {
+    db.puzzles.create({
+      puzzleRhyme: `Something that rhymes with ${req.params.flavor}`,
+      puzzleScenario: `Here's the situation with ${req.params.flavor}`,
+      puzzleImageUrl: `${req.params.flavor}.jpg`
+    }).then(puzzle => res.json(puzzle));
+  })
 
+  app.get('/createchoice', (req, res) => {
+    db.choices.create({
+      
+    })
+  })
 
   // Change this to POST - Add a player to a given game
   app.get('/addplayer/:userId/:gameId', (req,res) => {

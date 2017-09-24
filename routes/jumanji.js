@@ -51,33 +51,86 @@ const jumanji = {
     })
   },
 
-  loadTurn: (playerId) => {
+  loadTurn: (playerId, cb) => {
     // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
-    /*
-    {
-      inventory: ["torch", "machete"],
-      gameTurn: 3,
-      myturn: 3,
-      myName: "Jack",
+    
+    let gameObj = {
+      inventory: [],
+      gameTurn: null,
+      myturn: null,
+      myName: null,
+      myAvatar: null,
       myPosition: 8,
+      puzzle: {
+        puzzleId: null,
+        intro: null,
+        description: null,
+        image: null,
+        options: [
+          // {
+          //   optionId: 65,
+          //   text: "..",
+          //   action: "move",
+          //   value: +2,
+          //   result: "....",
+          //   item: true,
+          //   correctItem: 3
+          // }
+        ]
+      },
       opponents: [
-        {
-          name: "Maria",
-          position: 6
-          turn:
-        }
+        // {
+        //   name: "Arya",
+        //   position: 6,
+        //   turn: 4,
+        //   avatar: "wolf.png"
+        // }
       ]
-
     }
-    */
+    
+    // Get the specified player find the current turn
+    db.players.findById(playerId, {include: [db.turns]}).then(player => {
+
+      // collect an array for all of the turns already set for the player
+      let allTurns = []
+      player.turns.forEach(turnObj => {
+        allTurns.push(turnObj.turn)
+      });
+      // If a turn does not exist for this player turn, do something....
+      if (allTurns.indexOf(player.turn) === -1) {
+        console.log("\n\nThis turn does not exists\n");
+      // Otherwise, 
+      } else {
+
+      }
+    })
 
   },
 
   setPlayerTurn: (playerId, turn, cb) => {
     db.players.update({turn: turn}, {
       where: {id: playerId}
-    }).then(status => {
-      return cb(status);
+    }).then((status, player) => {
+      db.players.findById(playerId).then(player => {
+        let completed = player.completedPuzzles.split(", ");
+        db.puzzles.findAll({
+          where: {
+            id: {
+              $not: completed
+            }
+          }
+        }).then(puzzles => {
+          console.log(puzzles);
+        })
+        db.turns.create({
+          startingPos: player.position,
+          turn: player.turn,
+          playerId: player.id
+        }).then(turn => {
+          console.log(turn);
+          return cb(status);
+        })
+      })
     })
   },
 

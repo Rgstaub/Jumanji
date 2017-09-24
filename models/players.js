@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: "vforven.png"
     },
     position: DataTypes.INTEGER,
-    playerName: DataTypes.STRING
+    playerName: DataTypes.STRING,
+    completedPuzzles: DataTypes.STRING
   })
 
   players.associate = function(models) {
