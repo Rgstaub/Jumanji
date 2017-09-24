@@ -1,7 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
   var players = sequelize.define('players', {
     turn: DataTypes.INTEGER,
-    avatar: DataTypes.STRING,
+    avatar: {
+      type: DataTypes.STRING,
+      defaultValue: "vforven.png"
+    },
     position: DataTypes.INTEGER,
     playerName: DataTypes.STRING
   })

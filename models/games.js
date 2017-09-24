@@ -19,6 +19,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       defaultValue: null
     },
+    currentTurn: {
+      type: DataTypes.INTEGER
+    }
 
   })
 

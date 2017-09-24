@@ -1,6 +1,6 @@
 
-let tempId = 1;
-let tempName = "Richard"
+let tempId = null;
+let tempName = null;
 
 const data = {
   myId: tempId,
