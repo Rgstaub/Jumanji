@@ -47,12 +47,12 @@ const jumanji = {
     })
   },
 
-  joinGame: (gameId, userId) => {
+  loadTurn: (playerId) => {
     // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
     /*
     {
       inventory: [],
-      gameTuen: 0,
+      gameTurn: 0,
       myturn: 0,
 
     }
@@ -62,26 +62,41 @@ const jumanji = {
 
   setPlayerTurn: (playerId, turn, cb) => {
     db.players.update({turn: turn}, {
-        where: {
-          id: playerId
-        }
-      }
-    ).then(status => {
+      where: {id: playerId}
+    }).then(status => {
       return cb(status);
     })
   },
 
   setPlayerPos: (playerId, pos, cb) => {
     db.players.update({position: pos}, {
-      where: {
-        id: playerId
-      }
+      where: {id: playerId}
     }).then(status => {
       return cb(status);
     })
+  },
+
+  checkForStart: (gameId, cb) => {
+    db.games.findById(gameId, {
+      include: [db.players]
+    }).then(game => {
+      if (game.players.length - game.numPlayers === 0) {
+        console.log("\nStart Game\n");
+        db.games.update(
+          {
+            state: "active",
+            currentTurn: 1
+          }, 
+          {where: {id: gameId}}
+        ).then(() => {
+          cb(true);
+        })
+      } else if (game.numPlayers - game.players.length > 0) {
+        console.log("\nGame not Started\n")
+        cb(false);
+      } else console.log('something went wrong');
+    })
   }
-
-
 
 
 

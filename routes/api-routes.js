@@ -58,18 +58,22 @@ app.post('/joingame/select/:gameId/:userId?', (req, res) => {
     console.log("User " + userId + " found");
     jumanji.addPlayer(req.params.gameId, userId, (player) => {
       jumanji.setPlayerTurn(player.id, 0, (status) => {
-        if (status !== 1) {
+        if (status[0] !== 1) {
           res.send(`You found a bug. Its creepy-crawly eyes peer into your soul.
           Error: player turn was not set properly when adding to game`)
         } else {
           jumanji.setPlayerPos(player.id, 0, (status) => {
-            if (status !== 1) {
+            if (status[0] !== 1) {
               res.send(`You found a bug. You want to touch it but you are too scared.
               You big baby.
               Error: player position was not set properly when adding to game`)
             } else {
-              jumanji.checkForStart(req.params.gameId, () => {
-
+              jumanji.checkForStart(req.params.gameId, (start) => {
+                if (start) {
+                  loadTurn(player.id);
+                } else {
+                  res.send("waiting for more player");
+                }
               })
             }
           })
