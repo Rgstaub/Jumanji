@@ -107,28 +107,51 @@ const jumanji = {
 
   },
 
+  // Called when a player joind the game or at the end of each turn.
+  // Sets turn to a given input, randomly assigns a puzzle that has not been
+  // completed by the player, and updates the selected puzzle into the completed list
   setPlayerTurn: (playerId, turn, cb) => {
     db.players.update({turn: turn}, {
       where: {id: playerId}
     }).then((status, player) => {
       db.players.findById(playerId).then(player => {
-        let completed = player.completedPuzzles.split(", ");
+        // Get an array of the puzzles completed by the player already
+        let completed = [];
+        if (player.completedPuzzles) {
+          completed = player.completedPuzzles.split(", ");
+        } else {
+          completed = [];
+        }
+        // Get all the puzzles except for those already completed
         db.puzzles.findAll({
           where: {
-            id: {
-              $not: completed
-            }
+            id: {$not: completed}
           }
         }).then(puzzles => {
-          console.log(puzzles);
-        })
-        db.turns.create({
-          startingPos: player.position,
-          turn: player.turn,
-          playerId: player.id
-        }).then(turn => {
-          console.log(turn);
-          return cb(status);
+          // Randomly select one puzzles
+          let rand = Math.floor(Math.random() * puzzles.length);
+          let randPuzzleId = puzzles[rand].id;
+          // Create a new turn for the player and assign it the randomly selected puzzle
+          db.turns.create({
+            startingPos: player.position,
+            turn: player.turn,
+            playerId: player.id,
+            puzzleId: randPuzzleId
+          }).then(turn => {
+            // Update the "completedPuzzles" string by adding the ID of the selected puzzle
+            let updatedCompletedPuzzles = "";
+            if (!player.completedPuzzles) {
+              updatedCompletedPuzzles += `${randPuzzleId}`;
+            } else {
+              updatedCompletedPuzzles += `, ${randPuzzleId}`
+            }
+            db.players.update(
+              {completedPuzzles: updatedCompletedPuzzles},
+              {where: {id: player.id}}  
+            ).then(status => {
+              return cb(status);
+            }) 
+          })
         })
       })
     })

@@ -65,7 +65,7 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
           Error: player position was not set properly when adding to game`)
         } else {
           // Set that player's position to 0
-          jumanji.setPlayerTurn(player.id, 0, (status) => {
+          jumanji.setPlayerTurn(player.id, 1, (status) => {
             if (status[0] !== 1) {
               res.send(`You found a bug. You want to touch it but you are too scared.
               You big baby.
@@ -128,7 +128,7 @@ app.post('/createuser', (req, res) => {
 
   app.get('/createchoice', (req, res) => {
     db.choices.create({
-      
+
     })
   })
 
