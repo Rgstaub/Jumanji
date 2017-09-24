@@ -20,7 +20,7 @@ const path = require('path');
 // The main object controlling the game's functionality and mechanics
 const jumanji = {
 
-  addPlayer: (gameId, userId, cb) => {
+  addPlayer: (gameId, userId, avatarOpt, cb) => {
     // Check if a player with matching gameId and userId already exists before creating a new one
     db.players.findOne({
       where: {
@@ -29,10 +29,14 @@ const jumanji = {
       }
     }).then(result => { 
       // If no match is found, create the new player and set gameId and userId
+      var avatar = "";
+      if (!avatarOpt) avatar="vforvend.png";
+      else avatar = avatarOpt;
       if (result === null) {
         db.players.create({
           userId: userId,
-          gameId: gameId
+          gameId: gameId,
+          avatar: avatar
         }).then(response => {
           console.log(`Adding new player with userId: ${userId} to gameId: ${gameId}`);
           return cb(response);
@@ -51,9 +55,18 @@ const jumanji = {
     // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
     /*
     {
-      inventory: [],
-      gameTurn: 0,
-      myturn: 0,
+      inventory: ["torch", "machete"],
+      gameTurn: 3,
+      myturn: 3,
+      myName: "Jack",
+      myPosition: 8,
+      opponents: [
+        {
+          name: "Maria",
+          position: 6
+          turn:
+        }
+      ]
 
     }
     */
