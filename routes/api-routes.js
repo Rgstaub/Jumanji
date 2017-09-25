@@ -90,6 +90,12 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
   }
 })
 
+app.post('/submitchoice/:choiceId/:playerId', (req, res) => {
+  jumanji.submitChoice(req.params.choiceId, req.params.playerId, () => {
+    
+  })
+})
+
 app.post('/createuser', (req, res) => {
   // %%%%%%% Need to validate and sanitaze this user input before proceeding %%%%%%%%
   console.log(req.body)
@@ -202,7 +208,41 @@ app.post('/createuser', (req, res) => {
       res.send(players);
     })  
   })
+
+  app.get('/additem/:flavor', (req, res) => {
+    db.items.create({
+      itemName: req.params.flavor,
+      itemImageUrl: `${req.params.flavor}.png`
+    }).then( item => res.send(item));
+  })
+
+  app.get('/addtoinventory/:itemId/:playerId', (req, res) => {
+    db.inventories.create({
+      playerId: req.params.playerId,
+      itemId: req.params.itemId
+    }).then( inventory => res.send(inventory));
+  })
+
+  app.get('/deletefrominventory/:inventoryId', (req, res) => {
+    db.inventories.destroy({
+      where: {
+        id: req.params.inventoryId
+      }
+    }).then( result => res.send(result));
+  })
+
+  app.get('/getinventory/:playerId', (req, res) => {
+    db.inventories.findAll({
+      where: {
+        playerId: req.params.playerId
+      },
+      include: [db.items]
+    }).then( inventories => res.json(inventories));
+  })
+
 }
+
+
 
 //======================================================================================================|
 //=========================================| FUNCTIONS |================================================|

@@ -10,7 +10,7 @@ const myData = require('./userdata');
 const path = require('path');
 
 /*
-     ____.                                __.__ 
+     ____                                 __ __ 
     |    |__ __  _____ _____    ____     |__|__|
     |    |  |  \/     \\__  \  /    \    |  |  |
 /\__|    |  |  /  Y Y  \/ __ \|   |  \   |  |  |
@@ -51,11 +51,17 @@ const jumanji = {
     })
   },
 
+  // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
   loadTurn: (playerId, cb) => {
     // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
-    
+    console.log("\n\n LOAD TURN \n\n")
     let gameObj = {
-      inventory: [],
+      inventory: [
+        // {
+        //   itemName: ,
+
+        // }
+      ],
       gameTurn: null,
       myTurn: null, //
       myName: null, 
@@ -144,15 +150,12 @@ const jumanji = {
             value: choice.value,
             result: choice.result,
             item: choice.itemOption,
-            correctItem: 3
+            correctItem: choice.correctItemId
           }
           gameObj.puzzle.choices.push(choiceObj);
         })
         cb(gameObj);
       })
-
-    
-
     })
   },
 
@@ -234,10 +237,30 @@ const jumanji = {
         cb(false);
       } else console.log('something went wrong');
     })
+  },
+
+  addToInventory: (playerId, itemId, cb) => {
+    db.inventories.create({
+      playerId: playerId,
+      itemId: itemId
+    }).then(item => {
+      cb(item);
+    })
+  },
+
+  removeFromInventory: (inventoryId, cb) => {
+    db.inventories.destroy({
+      where: {
+        id: inventoryId
+      }
+    }).then(status => cb(status))
+  },
+
+  submitChoice: (choiceId, playerId, cb) => {
+    db.players.findById(playerId, {
+      include: [db.turns]
+    }).then( results => cb(results));
   }
-
-
-
 
 
 }
