@@ -12,9 +12,9 @@ module.exports = function(sequelize, DataTypes) {
 
   players.associate = function(models) {
     players.hasMany(models.inventories, {});
-    //players.hasOne(models.games, {});
     players.hasMany(models.turns, {});
     players.belongsTo(models.users, {});
+    players.belongsTo(models.games, {});
   }
 
   return players;

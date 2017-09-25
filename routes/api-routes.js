@@ -75,7 +75,9 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
               jumanji.checkForStart(req.params.gameId, (start) => {
                 if (start) {
                   // Load the game board
-                  jumanji.loadTurn(player.id);
+                  jumanji.loadTurn(player.id, (result) => {
+                    res.json(result);
+                  });
                 } else {
                   res.send("waiting for more player");
                 }
@@ -126,10 +128,15 @@ app.post('/createuser', (req, res) => {
     }).then(puzzle => res.json(puzzle));
   })
 
-  app.get('/createchoice', (req, res) => {
+  app.get('/createchoice/:puzzleId/:flavor', (req, res) => {
     db.choices.create({
-
-    })
+      text: `Do: ${req.params.flavor}`,
+      itemOptions: false,
+      resultsAction: 'move',
+      puzzleId: req.params.puzzleId,
+      resultValue: 2,
+      resultText: `A result related to ${req.params.flavor}`
+    }).then( result => res.json(result));
   })
 
   // Change this to POST - Add a player to a given game

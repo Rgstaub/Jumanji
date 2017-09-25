@@ -57,16 +57,17 @@ const jumanji = {
     let gameObj = {
       inventory: [],
       gameTurn: null,
-      myturn: null,
-      myName: null,
-      myAvatar: null,
-      myPosition: 8,
+      myTurn: null, //
+      myName: null, 
+      myPlayerId: null, //
+      myAvatar: null, //
+      myPosition: null, //
       puzzle: {
-        puzzleId: null,
+        puzzleId: null, //
         intro: null,
         description: null,
         image: null,
-        options: [
+        choices: [
           // {
           //   optionId: 65,
           //   text: "..",
@@ -78,7 +79,7 @@ const jumanji = {
           // }
         ]
       },
-      opponents: [
+      opponents: [ //
         // {
         //   name: "Arya",
         //   position: 6,
@@ -89,22 +90,70 @@ const jumanji = {
     }
     
     // Get the specified player find the current turn
-    db.players.findById(playerId, {include: [db.turns]}).then(player => {
+    db.players.findById(playerId, {include: [
+      db.turns, db.users, {
+        model: db.games,
+        include: [{
+          model: db.players,
+          include: db.users
+        }]
+      }]
+    }).then(player => {
+      // Set the readily available values
+      gameObj.myTurn = player.turn;
+      gameObj.myName = player.user.name;
+      gameObj.myPlayerId = playerId;
+      gameObj.myAvatar = player.avatar;
+      gameObj.gameTurn = player.game.currentTurn;
 
-      // collect an array for all of the turns already set for the player
-      let allTurns = []
+      player.game.players.forEach(player => {
+        
+        if (player.id !== playerId) {
+          let opponent = {
+            name: player.user.name,
+            position: player.position,
+            turn: player.turn,
+            avatar: player.avatar
+          };        
+          gameObj.opponents.push(opponent);
+        }
+      })
+      
+      // Get the correct turn row that corresponds to the player turn
+      let currentTurn;
       player.turns.forEach(turnObj => {
-        allTurns.push(turnObj.turn)
-      });
-      // If a turn does not exist for this player turn, do something....
-      if (allTurns.indexOf(player.turn) === -1) {
-        console.log("\n\nThis turn does not exists\n");
-      // Otherwise, 
-      } else {
+        if (turnObj.turn === player.turn) {
+          currentTurn = turnObj
+        }
+      })
 
-      }
+      gameObj.puzzle.puzzleId = currentTurn.puzzleId;
+      gameObj.myPosition = currentTurn.startingPos;
+
+      db.puzzles.findById( currentTurn.puzzleId,
+        {include: [db.choices]}
+      ).then(puzzle => {
+        gameObj.puzzle.intro = puzzle.puzzleRhyme;
+        gameObj.puzzle.description = puzzle.puzzleScenario;
+        gameObj.puzzle.image = puzzle.puzzleImage;
+        puzzle.choices.forEach(choice => {
+          let choiceObj = {
+            choiceId: choice.id,
+            text: choice.text,
+            action: choice.action,
+            value: choice.value,
+            result: choice.result,
+            item: choice.itemOption,
+            correctItem: 3
+          }
+          gameObj.puzzle.choices.push(choiceObj);
+        })
+        cb(gameObj);
+      })
+
+    
+
     })
-
   },
 
   // Called when a player joind the game or at the end of each turn.
