@@ -100,6 +100,7 @@ app.post('/createuser', (req, res) => {
   // %%%%%%% Need to validate and sanitaze this user input before proceeding %%%%%%%%
   console.log(req.body)
   db.users.create({
+    id: req.body.id,
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone
