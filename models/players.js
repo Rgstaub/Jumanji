@@ -6,14 +6,15 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: "vforven.png"
     },
     position: DataTypes.INTEGER,
-    playerName: DataTypes.STRING
+    playerName: DataTypes.STRING,
+    completedPuzzles: DataTypes.STRING
   })
 
   players.associate = function(models) {
     players.hasMany(models.inventories, {});
-    //players.hasOne(models.games, {});
     players.hasMany(models.turns, {});
     players.belongsTo(models.users, {});
+    players.belongsTo(models.games, {});
   }
 
   return players;

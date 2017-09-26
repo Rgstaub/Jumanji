@@ -49,28 +49,35 @@ app.post('/create/add/:gameName/:numPlayers', (req, res) => {
 })
 
 // This adds a player for the active user into the specified game
-app.post('/joingame/select/:gameId/:userId?', (req, res) => {
+app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
   let userId = myData.myId || req.params.userId;
   console.log(userId);
   if (!userId) {
     res.send("Error: No valid userId found");
   } else {
     console.log("User " + userId + " found");
-    jumanji.addPlayer(req.params.gameId, userId, (player) => {
-      jumanji.setPlayerTurn(player.id, 0, (status) => {
+    // Add the new player row to the DB
+    jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
+      // Set that player's turn to 0
+      jumanji.setPlayerPos(player.id, 0, (status) => {
         if (status[0] !== 1) {
           res.send(`You found a bug. Its creepy-crawly eyes peer into your soul.
-          Error: player turn was not set properly when adding to game`)
+          Error: player position was not set properly when adding to game`)
         } else {
-          jumanji.setPlayerPos(player.id, 0, (status) => {
+          // Set that player's position to 0
+          jumanji.setPlayerTurn(player.id, 1, (status) => {
             if (status[0] !== 1) {
               res.send(`You found a bug. You want to touch it but you are too scared.
               You big baby.
-              Error: player position was not set properly when adding to game`)
+              Error: player turn was not set properly when adding to game`)
             } else {
+              // Check if the game now has filled all its available spot.s. Start if so
               jumanji.checkForStart(req.params.gameId, (start) => {
                 if (start) {
-                  loadTurn(player.id);
+                  // Load the game board
+                  jumanji.loadTurn(player.id, (result) => {
+                    res.json(result);
+                  });
                 } else {
                   res.send("waiting for more player");
                 }
@@ -78,10 +85,15 @@ app.post('/joingame/select/:gameId/:userId?', (req, res) => {
             }
           })
         }
-      });
-      //res.json(data)
-    });
+      })
+    })
   }
+})
+
+app.post('/submitchoice/:choiceId/:playerId', (req, res) => {
+  jumanji.submitChoice(req.params.choiceId, req.params.playerId, () => {
+    
+  })
 })
 
 app.post('/createuser', (req, res) => {
@@ -114,7 +126,24 @@ app.post('/createuser', (req, res) => {
     }).then( response => res.send(response) );
   })
 
+  app.get('/createpuzzle/:flavor', (req, res) => {
+    db.puzzles.create({
+      puzzleRhyme: `Something that rhymes with ${req.params.flavor}`,
+      puzzleScenario: `Here's the situation with ${req.params.flavor}`,
+      puzzleImageUrl: `${req.params.flavor}.jpg`
+    }).then(puzzle => res.json(puzzle));
+  })
 
+  app.get('/createchoice/:puzzleId/:flavor', (req, res) => {
+    db.choices.create({
+      text: `Do: ${req.params.flavor}`,
+      itemOptions: false,
+      resultsAction: 'move',
+      puzzleId: req.params.puzzleId,
+      resultValue: 2,
+      resultText: `A result related to ${req.params.flavor}`
+    }).then( result => res.json(result));
+  })
 
   // Change this to POST - Add a player to a given game
   app.get('/addplayer/:userId/:gameId', (req,res) => {
@@ -179,7 +208,41 @@ app.post('/createuser', (req, res) => {
       res.send(players);
     })  
   })
+
+  app.get('/additem/:flavor', (req, res) => {
+    db.items.create({
+      itemName: req.params.flavor,
+      itemImageUrl: `${req.params.flavor}.png`
+    }).then( item => res.send(item));
+  })
+
+  app.get('/addtoinventory/:itemId/:playerId', (req, res) => {
+    db.inventories.create({
+      playerId: req.params.playerId,
+      itemId: req.params.itemId
+    }).then( inventory => res.send(inventory));
+  })
+
+  app.get('/deletefrominventory/:inventoryId', (req, res) => {
+    db.inventories.destroy({
+      where: {
+        id: req.params.inventoryId
+      }
+    }).then( result => res.send(result));
+  })
+
+  app.get('/getinventory/:playerId', (req, res) => {
+    db.inventories.findAll({
+      where: {
+        playerId: req.params.playerId
+      },
+      include: [db.items]
+    }).then( inventories => res.json(inventories));
+  })
+
 }
+
+
 
 //======================================================================================================|
 //=========================================| FUNCTIONS |================================================|

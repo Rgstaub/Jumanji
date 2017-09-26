@@ -12,8 +12,6 @@ module.exports = function(sequelize, DataTypes) {
 
   users.associate = function(models) {
     users.hasMany(models.players, {});
-    // users.hasMany(models.turns, {});
-    // users.hasMany(models.inventories, {})
   }
 
   return users;

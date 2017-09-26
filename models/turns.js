@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes) {
 
   turns.associate = function(models) {
     turns.belongsTo(models.players, {});
-    turns.hasOne(models.choices, {});
-    turns.hasOne(models.puzzles, {});
+    turns.belongsTo(models.choices, {});
+    turns.belongsTo(models.puzzles, {});
   }
 
   return turns;
