@@ -75,7 +75,7 @@ const jumanji = {
         image: null,
         choices: [
           // {
-          //   optionId: 65,
+          //   choiceId: 65,
           //   text: "..",
           //   action: "move",
           //   value: +2,
