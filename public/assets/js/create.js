@@ -21,45 +21,49 @@ $(document).on('click', '#chooseIdBtn', function(){
 // chosenAvatar = whatever you clicked on__________could propbably be coded as a for loop 
 // used in create and join
 
-document.getElementById("sword").onclick = function() {
-	var chosenAvatar = this.id
-	console.log(chosenAvatar)
-}; 
+$('.avatarImages').on('click', function() {
+	console.log(this.id);
+})
 
-document.getElementById("skull").onclick = function() {
-	var chosenAvatar = this.id
-	console.log(chosenAvatar)
-}; 
+// document.getElementById("sword").onclick = function() {
+// 	var chosenAvatar = this.id
+// 	console.log(chosenAvatar)
+// }; 
 
-document.getElementById("vforven").onclick = function() {
-	var chosenAvatar = this.id
-	console.log(chosenAvatar)
-}; 
+// document.getElementById("skull").onclick = function() {
+// 	var chosenAvatar = this.id
+// 	console.log(chosenAvatar)
+// }; 
 
-document.getElementById("magnify").onclick = function() {
-	var chosenAvatar = this.id
-	console.log(chosenAvatar)
-}; 
+// document.getElementById("vforven").onclick = function() {
+// 	var chosenAvatar = this.id
+// 	console.log(chosenAvatar)
+// }; 
 
-document.getElementById("darth").onclick = function() {
-	var chosenAvatar = this.id
-	console.log(chosenAvatar)
-}; 
+// document.getElementById("magnify").onclick = function() {
+// 	var chosenAvatar = this.id
+// 	console.log(chosenAvatar)
+// }; 
 
-document.getElementById("sun").onclick = function() {
-	var chosenAvatar = this.id
-	console.log(chosenAvatar)
-}; 
+// document.getElementById("darth").onclick = function() {
+// 	var chosenAvatar = this.id
+// 	console.log(chosenAvatar)
+// }; 
 
-document.getElementById("home").onclick = function() {
-	var chosenAvatar = this.id
-	console.log(chosenAvatar)
-}; 
+// document.getElementById("sun").onclick = function() {
+// 	var chosenAvatar = this.id
+// 	console.log(chosenAvatar)
+// }; 
 
-document.getElementById("health").onclick = function() {
-	var chosenAvatar = this.id
-	console.log(chosenAvatar)
-}; 
-______________________________________________________________________________________________________
+// document.getElementById("home").onclick = function() {
+// 	var chosenAvatar = this.id
+// 	console.log(chosenAvatar)
+// }; 
+
+// document.getElementById("health").onclick = function() {
+// 	var chosenAvatar = this.id
+// 	console.log(chosenAvatar)
+// }; 
+// ______________________________________________________________________________________________________
 
 
