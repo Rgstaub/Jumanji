@@ -6,10 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     puzzles.associate = function(models) {
-        puzzles.hasMany(models.choices, {
-            
-        })
+        puzzles.hasMany(models.choices, {})
     }
-
     return puzzles;
 };
