@@ -13,26 +13,77 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+    <script>
+
+
+        //add game board image to background of canvas
+            function draw() {
+                var ctx = document.getElementById('myCanvas').getContext('2d');
+                var img = document.getElementById("gameBoard");
+                ctx.drawImage(img, 10, 10, 800, 600);
+
+        //track coordinates of mouse movement
+                var ctx = document.getElementById('myCanvas').getContext('2d');
+                ctx.canvas.addEventListener('mousemove', function(event){
+                    var mouseX = event.clientX - ctx.canvas.offsetLeft;
+                    var mouseY = event.clientY - ctx.canvas.offsetTop;
+                    var status = document.getElementById('status');
+                    status.innerHTML = mouseX+" | "+mouseY; 
+                });
+
+        //dynamically create squares when user clicks mouse
+                var ctx = document.getElementById('myCanvas').getContext('2d');
+                ctx.canvas.addEventListener('click', function(event){
+                    var mouseX = event.clientX - ctx.canvas.offsetLeft;
+                    var mouseY = event.clientY - ctx.canvas.offsetTop;
+                    var status = document.getElementById('status');
+                    // alert(mouseX+" | "+mouseY);
+                    ctx.fillStyle = "red";
+                    ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
+                });
+
+        //Place avatars on canvas
+               var player1 = document.getElementById("skull");
+               ctx.drawImage(player1, 40,35, 60, 60);
+
+               var player2 = document.getElementById("sun");
+               ctx.drawImage(player2, 710,48, 60, 60);
+
+               var player3 = document.getElementById("magnify");
+               ctx.drawImage(player3, 38,512, 60, 60);
+
+               var player4 = document.getElementById("sword");
+               ctx.drawImage(player4, 712,512, 60, 60);
+                
+            }
+            window.onload = draw;
+        </script>
 </head>
 <body>
     
     <!-- Draw the canvas -->
-    <canvas id="myCanvas" width="800" height="600"
-        style="border:5px solid #000000;">
-    </canvas>
+    <div id="canvas-wrap">
+        <canvas id="myCanvas" width="800" height="600">
+        </canvas>
+    </div>
+
+    <h2 id="status">0 | 0</h2>
 
     <!-- Image of game board -->
     <img id="gameBoard" width="800" height="600"
     src="assets/img/jumanji_gameboard.svg" style="display: none" alt="Jumanji Game">
 
-    <!-- Add image to canvas -->
-    <script>
-        window.onload = function() {
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
-        var img = document.getElementById("gameBoard");
-        ctx.drawImage(img, 10, 10, 800, 600);
-        };
-    </script>
+    <!-- Avatar images -->
+    <img id="skull" src="assets/img/skull.png" style="display: none">
+    <img id="sun" src="assets/img/sun.png" style="display: none">
+    <img id="magnify" src="assets/img/magnify.png" style="display: none">
+    <img id="sword" src="assets/img/sword.png" style="display: none">
+
+    <!-- Backpack to store items -->
+    <div id="itemStorage">
+        <img id="backpack" src="assets/img/backpack.png">
+    </div>
+
 </body>
 </html>
