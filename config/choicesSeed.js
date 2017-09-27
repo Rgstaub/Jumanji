@@ -176,7 +176,7 @@ module.exports = [
       "correctItemId": null,
       "resultAction": "move",
       "resultValue": -2,
-      "resultText": "The second you get stung you cry out and pain and run back.",
+      "resultText": "The second you get stung you cry out in pain and run back.",
       "puzzleId": 6
     },
     {
@@ -266,7 +266,7 @@ module.exports = [
       "correctItemId": null,
       "resultAction": "move",
       "resultValue": -1,
-      "resultText": "You can hear small animals in the dark, but most are afraid of you and you make it out of the cave with skinned knees and rapidly developing bruise on your forehad but otherwise uharmed.",
+      "resultText": "You can hear small animals in the dark, but most are afraid of you and you make it out of the cave with skinned knees and a rapidly developing bruise on your forehad but otherwise uharmed.",
       "puzzleId": 9
     },
     {
@@ -558,30 +558,30 @@ module.exports = [
       "puzzleId": 21
     },
     {
-      "text": "You find a few items that could be useful like a machete.",
+      "text": "You search for something useful.",
       "itemOption": false,
       "correctItemId": null,
       "resultAction": "move",
       "resultValue": 0,
-      "resultText": "With this blade you can protect yourself and may be able to pass obstacles other players can't.",
+      "resultText": "Everything of value was carried off.",
       "puzzleId": 15
     },
     {
-      "text": "a coil of thick and sturdy rope.",
+      "text": "Wait for people to show up.",
       "itemOption": false,
       "correctItemId": null,
       "resultAction": "move",
       "resultValue": 0,
-      "resultText": "This rope is an essential in the wild and untamed jungle.",
+      "resultText": "You hear distant gunshots coming closer and have to move.",
       "puzzleId": 15
     },
     {
-      "text": "torch.",
+      "text": "Look in the nearby buildings.",
       "itemOption": false,
       "correctItemId": null,
       "resultAction": "move",
       "resultValue": 0,
-      "resultText": "A torch can double as a useful weapon and a light source in dark areas.",
+      "resultText": "A molotov cocktail blocks your way and you quick move on.",
       "puzzleId": 15
     },
     {
@@ -855,7 +855,7 @@ module.exports = [
       "puzzleId": 34
     },
     {
-      "text": "The age old way of going around where the dogs are lazing around.",
+      "text": "The age old way of going around where the dogs are lazing about.",
       "itemOption": false,
       "correctItemId": null,
       "resultAction": "move",
