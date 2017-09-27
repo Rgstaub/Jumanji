@@ -14,66 +14,113 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-
     <script>
+        
+        // Player 1 Position Array
+        player1PosArray = [
+            [40,35],[95,45],[120,65],[135,95],[138,130],[138,170],[130,210],[125,250],[120,290],[118,330],[118,370],[122,410],[145,450],[185,465],[218,465],[242,445],[250,410],
+            [250,380],[250,350],[248,320],[235,280],[230,240],[230,210],[230,170],[235,130],[255,90],[290,80],[325,80],[350,105],[360,130],[370,160]
+            ];
 
+    // Player 2 Position Array
+        player2PosArray = [
+            [38,512],[112,515],[150,512],[190,512],[230,512],[275,515],[320,525],[365,525],[405,530],[450,532],[490,530],[535,515],[565,485],[580,450],[568,415],[530,400],[495,390],
+            [460,390],[422,395],[390,410],[355,410],[325,415],[292,415],[260,415],[220,405],[190,385],[175,350],[185,310],[205,288],[240,280],[270,280]
+            ];
 
-        //add game board image to background of canvas
-            function draw() {
-                var ctx = document.getElementById('myCanvas').getContext('2d');
-                var img = document.getElementById("gameBoard");
-                ctx.drawImage(img, 10, 10, 800, 600);
+    // Player 3 Position Array
+        player3PosArray = [
+            [710,40],[640,50],[590,55],[545,55],[505,55],[450,45],[410,45],[],[],[],[]
+            ]
+
+    // Player 4 Position Array
+
+        //add game board image to background
+        function draw() {
+            var ctx = document.getElementById('myCanvas').getContext('2d');
+            var img = document.getElementById("gameBoard");
+            ctx.drawImage(img, 10, 10, 800, 600);
 
         //track coordinates of mouse movement
-                var ctx = document.getElementById('myCanvas').getContext('2d');
-                ctx.canvas.addEventListener('mousemove', function(event){
-                    var mouseX = event.clientX - ctx.canvas.offsetLeft;
-                    var mouseY = event.clientY - ctx.canvas.offsetTop;
-                    var status = document.getElementById('status');
-                    status.innerHTML = mouseX+" | "+mouseY; 
-                });
+        var ctx = document.getElementById('myCanvas').getContext('2d');
+            ctx.canvas.addEventListener('mousemove', function(event){
+            var mouseX = event.clientX - ctx.canvas.offsetLeft;
+            var mouseY = event.clientY - ctx.canvas.offsetTop;
+            var status = document.getElementById('status');
+            status.innerHTML = mouseX+" | "+mouseY; 
+        });
 
         //dynamically create squares when user clicks mouse
-                var ctx = document.getElementById('myCanvas').getContext('2d');
-                ctx.canvas.addEventListener('click', function(event){
-                    var mouseX = event.clientX - ctx.canvas.offsetLeft;
-                    var mouseY = event.clientY - ctx.canvas.offsetTop;
-                    var status = document.getElementById('status');
-                    // alert(mouseX+" | "+mouseY);
-                    ctx.fillStyle = "red";
-                    ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
-                });
+        var ctx = document.getElementById('myCanvas').getContext('2d');
+            ctx.canvas.addEventListener('click', function(event){
+            var mouseX = event.clientX - ctx.canvas.offsetLeft;
+            var mouseY = event.clientY - ctx.canvas.offsetTop;
+            var status = document.getElementById('status');
+            // alert(mouseX+" | "+mouseY);
+                ctx.fillStyle = "red";
+                ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
+            });
 
         //Place avatars on canvas
-               var player1 = document.getElementById("skull");
-               ctx.drawImage(player1, 40,35, 60, 60);
+        var player1 = document.getElementById("skull");
+            // ctx.drawImage(player1, 40, 35, 60, 60);
+            // ctx.drawImage(player1, player1PosArray[p1Pos][0], posArray[p1pos][1], 60, 60);
 
-               var player2 = document.getElementById("sun");
-               ctx.drawImage(player2, 710,48, 60, 60);
+        var player2 = document.getElementById("magnify");
+            // ctx.drawImage(player2, 38, 512, 60, 60);
+            // ctx.drawImage(player2, player2PosArray[p2Pos][0], posArray[p2pos][1], 60, 60);
 
-               var player3 = document.getElementById("magnify");
-               ctx.drawImage(player3, 38,512, 60, 60);
+        var player3 = document.getElementById("sun");
+            // ctx.drawImage(player3, 545, 55, 60, 60);
+            // ctx.drawImage(player3, player3PosArray[p3Pos][0], posArray[p3pos][1], 60, 60);
 
-               var player4 = document.getElementById("sword");
-               ctx.drawImage(player4, 712,512, 60, 60);
+        var player4 = document.getElementById("sword");
+            ctx.drawImage(player4, 370, 35, 60, 60);
+            // ctx.drawImage(player4, player4PosArray[p4Pos][0], posArray[p4pos][1], 60, 60);
                 
             }
+
             window.onload = draw;
+
+            
+            // $("#introModal").text(gameObj.puzzle.puzzleId);
+            // $("#puzzleIntro").text(gameObj.puzzle.intro);
+            // $("#puzzleDescrip").text(gameObj.puzzle.description);
+            // $("#puzzleChoices").text(gameObj.puzzle.description.choices[]);
+
+
         </script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <meta charset="UTF-8">
     
 </head>
 
 <body>
     
-    <!-- Draw the canvas -->
+    <!-- Div containing canvas and inventory-->
     <div id="canvas-wrap">
+            <div class="inventory">
+                <h2 id="pack">Survival Pack</h2>
+                    <p>IHelpful items inside this backpack you should keep<br>
+                         should you find yourself in too deep.</p>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                        <img id="backpackPic" src="assets/img/backpack.png">
+                        <span class="caret"></span>
+                    </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="ropePic" src="assets/img/rope.jpg">Rope</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="machetePic" src="assets/img/machete.jpg">Machete</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="torchPic" src="assets/img/torch.png">Torch</a></li>
+                            <li role="presentation" class="divider"></li>
+                        </ul>
+                </div>
+            </div>
+
         <canvas id="myCanvas" width="800" height="600">
+
         </canvas>
     </div>
 
-    <h2 id="status">0 | 0</h2>
+    <h2 id="status" style="display:none">0 | 0</h2>
 
     <!-- Image of game board -->
     <img id="gameBoard" width="800" height="600"
@@ -85,11 +132,54 @@
     <img id="magnify" src="assets/img/magnify.png" style="display: none">
     <img id="sword" src="assets/img/sword.png" style="display: none">
 
-    <!-- Backpack to store items -->
-    <div id="itemStorage">
-        <img id="backpack" src="assets/img/backpack.png">
-    </div>
+    <!-- Model to display puzzle intro -->
+    <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Puzzle Intro Modal</button>
+            
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="introModal" class="modal-title">Puzzle Intro</h5>
 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="puzzleIntro"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Accept Challenge</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Modal to display puzzle description and choices -->
+    <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Main Puzzle Modal</button>
+    
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Puzzle Description and Choices</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="puzzleDescrip"></p>
+                        <p id="puzzleChoices"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>
