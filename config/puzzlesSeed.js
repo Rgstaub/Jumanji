@@ -1,4 +1,4 @@
-[
+module.exports = [
     {
       "id": 1,
       "puzzleRhyme": "A large animal lumbers into view,\nit growls menacingly and moves towards you.",
@@ -103,7 +103,7 @@
     },
     {
       "id": 18,
-      "puzzleRhyme": "Their string can hurt you like getting shot,\nsuch a small thing harmless or so you thought.",
+      "puzzleRhyme": "Their sting can hurt you like getting shot,\nsuch a small thing harmless or so you thought.",
       "puzzleScenario": "A colony of bullet ants marches over a nearby ant hill, their string is sad to hurt as bad as getting shoot.",
       "puzzleImageUrl": ""
     },
@@ -139,7 +139,7 @@
     },
     {
       "id": 24,
-      "puzzleRhyme": "A colossal stone is in your way and will not move,\ntoo much for this could very well prove.",
+      "puzzleRhyme": "A colossal stone is in your way and will not move,\ntoo much for you this could very well prove.",
       "puzzleScenario": "A boulder the size of a small house is obstructing your progress.",
       "puzzleImageUrl": ""
     },
@@ -163,7 +163,7 @@
     },
     {
       "id": 28,
-      "puzzleRhyme": "they have two large pincers and a venomous tail,\nit scuttles around tree and over vines deadly and pale.",
+      "puzzleRhyme": "they have two large pincers and a venomous tail,\nit scuttles around trees and over vines deadly and pale.",
       "puzzleScenario": "Scorpions have some of the most potent venom in the world, meaning the one scuttling toward you with its tail raised is terrifying.",
       "puzzleImageUrl": ""
     },
