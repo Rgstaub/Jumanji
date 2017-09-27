@@ -58,33 +58,22 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
     console.log("User " + userId + " found");
     // Add the new player row to the DB
     jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
-      // Set that player's turn to 0
-      jumanji.setPlayerPos(player.id, 0, (status) => {
-        if (status[0] !== 1) {
-          res.send(`You found a bug. Its creepy-crawly eyes peer into your soul.
-          Error: player position was not set properly when adding to game`)
-        } else {
-          // Set that player's position to 0
-          jumanji.setPlayerTurn(player.id, 1, (status) => {
-            if (status[0] !== 1) {
-              res.send(`You found a bug. You want to touch it but you are too scared.
-              You big baby.
-              Error: player turn was not set properly when adding to game`)
+      // Set that player's position to 0
+      jumanji.setPlayerPos(player.id, 0, () => {
+        // Set that player's turn to 1
+        jumanji.setPlayerTurn(player.id, 1, () => {
+          // Check if the game now has filled all its available spot.s. Start if so
+          jumanji.checkForStart(req.params.gameId, (start) => {
+            if (start) {
+              // Load the game board
+              jumanji.loadTurn(player.id, (result) => {
+                res.json(result);
+              });
             } else {
-              // Check if the game now has filled all its available spot.s. Start if so
-              jumanji.checkForStart(req.params.gameId, (start) => {
-                if (start) {
-                  // Load the game board
-                  jumanji.loadTurn(player.id, (result) => {
-                    res.json(result);
-                  });
-                } else {
-                  res.send("waiting for more player");
-                }
-              })
+              res.send("waiting for more player");
             }
           })
-        }
+        })
       })
     })
   }
@@ -127,7 +116,6 @@ app.post('/createuser', (req, res) => {
   // %%%%%%% Need to validate and sanitaze this user input before proceeding %%%%%%%%
   console.log(req.body)
   db.users.create({
-    id: req.body.id,
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone

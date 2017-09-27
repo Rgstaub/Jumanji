@@ -265,11 +265,23 @@ const jumanji = {
       db.turns.findById(turnId, {
         include: [db.choices]
       }).then( turn => {
-
-        cb(turn.choice.itemOption, turn.choice.correctItemId, turn.choice.resultAction, turn.choice.returnValue, turn.startingPos, turn.playerId)
+        cb(turn.choice.itemOption, turn.choice.correctItemId, turn.choice.resultAction, 
+          turn.choice.returnValue, turn.startingPos, turn.playerId)
       })
     })
-  }
+  },
+
+  checkId: (userId, cb) => {
+    if (userId) {
+      console.log(userId);
+      cb(true);
+    } else {
+      console.log('No ID detected');
+      cb(false);
+    }
+  },
+
+
 
 
 }

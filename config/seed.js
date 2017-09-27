@@ -8,11 +8,10 @@ var seedAll = function(func1,func2, func3) {
         console.log('Starting Second function ')
         func2().then(()=>{
             console.log('I was done')
-                func3().then(()=>{
-                    console.log('eff this')
-                })
+            func3().then(()=>{
+                console.log('eff this')
+            })
         })
-        
     })
 };
 
