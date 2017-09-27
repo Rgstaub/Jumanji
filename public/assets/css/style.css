@@ -1,0 +1,163 @@
+body, html {
+    height: 100%;
+    
+    background-image: url("../img/jungle-background-wallpaper-download-wallpapers-6.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg { 
+    background-image: url("../img/jumanji_gameboard.svg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.bodyDiv
+ {
+    height: 350px;
+    width: 85%;
+    background-color: grey;
+    border-style: solid;
+    border-width: 10px;
+    color: white;
+    border-color: #00602f;   
+
+}
+
+.jumbo{
+.bodyDiv2 {
+        height: 355px;
+        width: 85%;
+        background-color: grey;
+        border-style: solid;
+        border-width: 10px;
+        color: white;
+        /*border-color: #00602f;*/ 
+    border-color: black;
+}
+
+.skullJungleDiv {
+    background-image: url("../img/skullJungle.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+        
+
+.jumbo {
+    background-image: url("../img/pantheronlimb.jpg");
+    background-size: 100%;
+    color: white;
+     z-index: 1;
+}
+
+.avatarDiv{
+
+}
+
+#whiteJumbo{
+    color: white;
+
+}
+
+    .bodyDiv {
+        height: 355px;
+        width: 85%;
+        background-color: grey;
+        border-style: solid;
+        border-width: 10px;
+        color: white;
+        border-color: #00602f;
+        /*border-color: #00602f;*/ 
+    border-color: black;
+        overflow: scroll;
+    }
+
+    .chooseYourAvatarDiv {
+        height: 355px;
+        width: 85%;
+        background-color: grey;
+        border-style: solid;
+        border-width: 10px;
+        
+        border-color: #00602f;
+        
+    }
+
+
+    .avatarImages:hover {
+
+        height: 110px;
+        background-color: red;
+    }
+
+    .joinableGamesTable .bodyDiv {
+
+        overflow: scroll;
+        height:100%;
+    }
+
+    .gameNameDiv {
+        height: 50%;
+    }
+
+    .whiteText {
+        color: white;
+    }
+
+    #whiteJumanji{
+        color:white;
+    }
+
+    .resumeTable{
+        font-size: 25px
+        text-align: center;
+    }
+
+  #playerAmount{
+    color:black;
+  }
+
+  #canvas-wrap {
+    width: 100%;
+    text-align: center;
+    padding-top: 60px;
+}
+
+#status {
+    color: white;
+}
+
+p {
+    color: white;
+    font-size: 10px;
+}
+
+#pack {
+    color: white;
+    font-size: 18px;
+}
+
+#ropePic {
+    height: 60px;
+    padding-right: 10px;
+}
+
+#machetePic {
+    height: 80px;
+}
+
+#torchPic {
+    height: 100px;
+}
+
+.inventory {
+    display: inline-block;
+}
+
+#backpackPic {
+    height: 150px;
+}
