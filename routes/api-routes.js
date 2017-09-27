@@ -60,17 +60,8 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
     jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
       // Set that player's turn to 0
       jumanji.setPlayerPos(player.id, 0, (status) => {
-        if (status[0] !== 1) {
-          res.send(`You found a bug. Its creepy-crawly eyes peer into your soul.
-          Error: player position was not set properly when adding to game`)
-        } else {
           // Set that player's position to 0
           jumanji.setPlayerTurn(player.id, 1, (status) => {
-            if (status[0] !== 1) {
-              res.send(`You found a bug. You want to touch it but you are too scared.
-              You big baby.
-              Error: player turn was not set properly when adding to game`)
-            } else {
               // Check if the game now has filled all its available spot.s. Start if so
               jumanji.checkForStart(req.params.gameId, (start) => {
                 if (start) {
@@ -82,13 +73,12 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
                   res.send("waiting for more player");
                 }
               })
-            }
           })
-        }
-      })
+          })
+        })
+      }
     })
-  }
-})
+  
 
 //app.get('/loadturn', (requestAnimationFrame))
 
@@ -263,8 +253,8 @@ app.post('/createuser', (req, res) => {
       include: [db.items]
     }).then( inventories => res.json(inventories));
   })
-
 }
+
 
 
 
