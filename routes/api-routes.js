@@ -90,8 +90,31 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
   }
 })
 
-app.post('/submitchoice/:choiceId/:playerId', (req, res) => {
-  jumanji.submitChoice(req.params.choiceId, req.params.playerId, () => {
+//app.get('/loadturn', (requestAnimationFrame))
+
+app.post('/submitchoice/:choiceId/:turnId/?:inventoryId', (req, res) => {
+  jumanji.submitChoice(req.params.choiceId, req.params.turnId, (itemBool, itemId, action, value, startingPos, playerId) => {
+    if (itemBool) {
+      jumanji.removeFromInventory(req.params.inventoryId, () => {
+        let newPosition = startingPos + value;
+        jumanji.setPlayerPos(playerId, newPosition, () => {
+          res.status(200);
+        })
+      })
+    } else if (action === "get item") {
+      jumanji.addToInventory(playerId, value, () => {
+        res.status(200);
+      })
+    } else if (action === "move") {
+      let newPosition = startingPos + value;
+      jumanji.setPlayerPos(playerId, newPosition, () => {
+        res.status(200);
+      })
+    } else if (action === "die") {
+      jumanji.setPlayerPos(playerId, 0, () => {
+        res.status(200);
+      })
+    }
     
   })
 })
@@ -100,6 +123,7 @@ app.post('/createuser', (req, res) => {
   // %%%%%%% Need to validate and sanitaze this user input before proceeding %%%%%%%%
   console.log(req.body)
   db.users.create({
+    id: req.body.id,
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone

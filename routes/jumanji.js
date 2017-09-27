@@ -75,7 +75,7 @@ const jumanji = {
         image: null,
         choices: [
           // {
-          //   optionId: 65,
+          //   choiceId: 65,
           //   text: "..",
           //   action: "move",
           //   value: +2,
@@ -256,10 +256,19 @@ const jumanji = {
     }).then(status => cb(status))
   },
 
-  submitChoice: (choiceId, playerId, cb) => {
-    db.players.findById(playerId, {
-      include: [db.turns]
-    }).then( results => cb(results));
+  submitChoice: (choiceId, turnId, cb) => {
+    db.turns.update({choiceId: choiceId}, {
+      where: {
+        id: turnId
+      }
+    }).then( () => {
+      db.turns.findById(turnId, {
+        include: [db.choices]
+      }).then( turn => {
+
+        cb(turn.choice.itemOption, turn.choice.correctItemId, turn.choice.resultAction, turn.choice.returnValue, turn.startingPos, turn.playerId)
+      })
+    })
   }
 
 

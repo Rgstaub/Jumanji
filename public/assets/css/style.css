@@ -28,6 +28,26 @@ body, html {
 }
 
 .jumbo{
+.bodyDiv2 {
+        height: 355px;
+        width: 85%;
+        background-color: grey;
+        border-style: solid;
+        border-width: 10px;
+        color: white;
+        /*border-color: #00602f;*/ 
+    border-color: black;
+}
+
+.skullJungleDiv {
+    background-image: url("../img/skullJungle.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+        
+
+.jumbo {
     background-image: url("../img/pantheronlimb.jpg");
     background-size: 100%;
     color: white;
@@ -51,6 +71,8 @@ body, html {
         border-width: 10px;
         color: white;
         border-color: #00602f;
+        /*border-color: #00602f;*/ 
+    border-color: black;
         overflow: scroll;
     }
 
