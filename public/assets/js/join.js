@@ -1,7 +1,10 @@
+$(document).ready(function() {
+
 $.ajax({
   method: "get",
   url: "joingame/findgames"
 }).done(function(gameArr) {
+  console.log(gameArr);
   gameArr.forEach(function(game) {
     var row = $('<tr></tr>');
     var name = $(`<td value=${game.id} class="clickable">${game.name}</td>`);
@@ -38,4 +41,4 @@ url: string
 
 })
 
-
+})
