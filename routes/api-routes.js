@@ -90,7 +90,11 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
   }
 })
 
-//app.get('/loadturn', (requestAnimationFrame))
+app.get('/loadturn/:playerId', (req, res) => {
+  jumanji.loadTurn(req.params.playerId, (result) => {
+    res.json(result);
+  })
+})
 
 app.post('/submitchoice/:choiceId/:turnId/?:inventoryId', (req, res) => {
   jumanji.submitChoice(req.params.choiceId, req.params.turnId, (itemBool, itemId, action, value, startingPos, playerId) => {
