@@ -104,27 +104,33 @@
     
     <!-- Div containing canvas and inventory-->
     <div id="canvas-wrap">
-            <div class="inventory">
-                <h2 id="pack">Survival Pack</h2>
-                    <p>IHelpful items inside this backpack you should keep<br>
-                         should you find yourself in too deep.</p>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
-                        <img id="backpackPic" src="assets/img/backpack.png">
-                        <span class="caret"></span>
-                    </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="ropePic" src="assets/img/rope.jpg">Rope</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="machetePic" src="assets/img/machete.jpg">Machete</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="torchPic" src="assets/img/torch.png">Torch</a></li>
-                            <li role="presentation" class="divider"></li>
-                        </ul>
-                </div>
-            </div>
 
         <canvas id="myCanvas" width="800" height="600">
 
         </canvas>
+
+        <!-- <div class="dice-wrap">
+                <img id="dice" src="assets/img/dice.png">
+        </div> -->
+                <div class="inventory">
+                    <h2 id="pack">Survival Pack</h2>
+                        <p id="packMessage" >Should you find yourself in too deep<br>
+                        helpful items inside this backpack you should keep</p>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                            <img id="backpackPic" src="assets/img/backpack.png">
+                            <span class="caret"></span>
+                        </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="ropePic" src="assets/img/rope.jpg">Rope</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="machetePic" src="assets/img/machete.jpg">Machete</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><img id="torchPic" src="assets/img/torch.png">Torch</a></li>
+                                <li role="presentation" class="divider"></li>
+                            </ul>
+                    </div>
+
+                </div>
+
     </div>
 
     <h2 id="status">0 | 0</h2>
@@ -153,10 +159,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p id="puzzleIntro"></p>
+                        <p id="puzzleIntro">Content</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Accept Challenge</button>
+                        <button type="button" id="btnGreen" class="btn btn-secondary">Accept Challenge</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -181,15 +187,13 @@
                         <p id="puzzleChoices"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" id="btnGreen" class="btn btn-primary">Save changes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
         <script src="assets/js/gameClient.js></script>
-=======
 
         <script type="text/javascript">
 
@@ -209,7 +213,6 @@
             
     </script>
 
->>>>>>> Angela
 </body>
 
 </html>

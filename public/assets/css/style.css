@@ -27,10 +27,7 @@ body, html {
 
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> Angela
 .bodyDiv2 {
         height: 355px;
         width: 85%;
@@ -127,21 +124,23 @@ body, html {
   #canvas-wrap {
     width: 100%;
     text-align: center;
-    padding-top: 60px;
+    padding-top: 80px;
 }
 
 #status {
     color: white;
 }
 
-p {
+#packMessage {
     color: white;
-    font-size: 10px;
+    font-size: 14px;
+    background-color: grey; opacity: 0.8;
+    
 }
 
 #pack {
     color: white;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 #ropePic {
@@ -157,8 +156,11 @@ p {
     height: 100px;
 }
 
-.inventory {
+.inventory, .dice-wrap {
     display: inline-block;
+    vertical-align: top;
+    padding-left: 40px;
+    padding-top: 40px;
 }
 
 #backpackPic {
@@ -167,4 +169,12 @@ p {
 
 #ropePic, #machetePic, #torchPic {
     padding-left: 5px;
+}
+
+#dice {
+    height: 100px;
+}
+
+#btnGreen {
+    background-color: #00602f;
 }

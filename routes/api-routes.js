@@ -96,7 +96,6 @@ app.post('/joingame/select/:gameId/:userId?/:avatar', (req, res) => {
     console.log("User " + userId + " found");
     // Add the new player row to the DB
     jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
-<<<<<<< HEAD
       // Set that player's position to 0
       console.log("\nPlayer added successfully");
       console.log(player.id);
@@ -121,27 +120,6 @@ app.post('/joingame/select/:gameId/:userId?/:avatar', (req, res) => {
           })
         })
       })
-=======
-      // Set that player's turn to 0
-      jumanji.setPlayerPos(player.id, 0, (status) => {
-          // Set that player's position to 0
-          jumanji.setPlayerTurn(player.id, 1, (status) => {
-              // Check if the game now has filled all its available spot.s. Start if so
-              jumanji.checkForStart(req.params.gameId, (start) => {
-                if (start) {
-                  // Load the game board
-                  jumanji.loadTurn(player.id, (result) => {
-                    res.json(result);
-                  });
-                } else {
-                  res.send("waiting for more player");
-                }
-              })
-          })
-          })
-        })
-      }
->>>>>>> Angela
     })
   
 
