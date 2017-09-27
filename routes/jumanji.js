@@ -63,6 +63,7 @@ const jumanji = {
         // }
       ],
       gameTurn: null,
+      
       myTurn: null, //
       myName: null, 
       myPlayerId: null, //
@@ -146,9 +147,9 @@ const jumanji = {
           let choiceObj = {
             choiceId: choice.id,
             text: choice.text,
-            action: choice.action,
-            value: choice.value,
-            result: choice.result,
+            action: choice.resultAction,
+            value: choice.resultValue,
+            result: choice.resultText,
             item: choice.itemOption,
             correctItem: choice.correctItemId
           }
@@ -180,6 +181,7 @@ const jumanji = {
             id: {$not: completed}
           }
         }).then(puzzles => {
+          
           // Randomly select one puzzles
           let rand = Math.floor(Math.random() * puzzles.length);
           let randPuzzleId = puzzles[rand].id;
@@ -213,7 +215,7 @@ const jumanji = {
     db.players.update({position: pos}, {
       where: {id: playerId}
     }).then(status => {
-      return cb(status);
+      return cb(playerId);
     })
   },
 

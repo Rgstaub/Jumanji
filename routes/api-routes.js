@@ -40,6 +40,39 @@ app.get('/joingame/findgames', (req, res) => {
   })
 })
 
+// This return an array of active games for a given player
+app.get('/resumegames/:userId', (req, res) => {
+  let userId = req.params.userId;
+  db.players.findAll({
+    where: {
+      userId: userId
+    },
+    include: {
+      model: db.games,
+      include: [db.players]
+    }
+  }).then( myPlayers => {
+    let games = []
+    let gameIds = [];
+    myPlayers.forEach(myPlayer => {
+      gameIds.push(myPlayer.gameId);
+      games.push(myPlayer.game);
+    })
+    console.log(games);
+    db.players.findAll({
+      where: {
+        gameId: gameIds
+      },
+      include: [db.users]
+    }).then(players => {
+      let sorted = sortGamesPlayers(games, players);
+      res.json(sorted);
+    })
+
+    
+  })
+})
+
 // This creates a new game based on input from the front-end
 app.post('/create/add/:gameName/:numPlayers', (req, res) => {
   db.games.create({
@@ -49,8 +82,13 @@ app.post('/create/add/:gameName/:numPlayers', (req, res) => {
 })
 
 // This adds a player for the active user into the specified game
-app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
+app.post('/joingame/select/:gameId/:userId?/:avatar', (req, res) => {
+  console.log("\nID from server:");
+  console.log(myData.myId)
   let userId = myData.myId || req.params.userId;
+  let playerId
+  console.log("\nID from request");
+  console.log(userId)
   console.log(userId);
   if (!userId) {
     res.send("Error: No valid userId found");
@@ -59,18 +97,25 @@ app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
     // Add the new player row to the DB
     jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
       // Set that player's position to 0
-      jumanji.setPlayerPos(player.id, 0, () => {
+      console.log("\nPlayer added successfully");
+      console.log(player.id);
+      jumanji.setPlayerPos(player.id, 0, (playerId) => {
+        console.log("position set successfully");
+        console.log(playerId);
         // Set that player's turn to 1
-        jumanji.setPlayerTurn(player.id, 1, () => {
+        jumanji.setPlayerTurn(playerId, 1, () => {
+          console.log("turn set successfully");
           // Check if the game now has filled all its available spot.s. Start if so
           jumanji.checkForStart(req.params.gameId, (start) => {
+            console.log("\n");
+            console.log(player.id);
             if (start) {
               // Load the game board
               jumanji.loadTurn(player.id, (result) => {
                 res.json(result);
               });
             } else {
-              res.send("waiting for more player");
+              res.json(player.id);
             }
           })
         })
@@ -119,7 +164,10 @@ app.post('/createuser', (req, res) => {
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone
-  }).then( response => res.send(response) );
+  }).then( response => {
+    myData.myId = response.id;
+    res.send(response); 
+  });
 })
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$       TEST AREA       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$

@@ -28,9 +28,12 @@ module.exports = function(app) {
   })
   
   app.get('/join', (req, res) => {
-    res.redirect('join.html')
+    res.redirect('join.html');
   })
 
+  // app.get('/game/*', (req, res) => {
+  //   res.redirect('jumanji.html');
+  // })
     
 
 }
