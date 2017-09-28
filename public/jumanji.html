@@ -235,9 +235,9 @@
                     draw();
 
                     drawplayer1(gameObj.myPosition, gameObj.myAvatar);
-                    drawplayer2(gameObj.myPosition, gameObj.myAvatar);
-                    drawplayer3(gameObj.myPosition, gameObj.myAvatar);
-                    drawplayer4(gameObj.myPosition, gameObj.myAvatar);
+                    drawplayer2(gameObj.opponents.position, gameObj.opponents.avatar);
+                    drawplayer3(gameObj.opponents.position, gameObj.opponents.avatar);
+                    drawplayer4(gameObj.opponents.position, gameObj.opponents.avatar);
 
                     $("#puzzleIntro").text(gameObj.puzzle.intro);
 

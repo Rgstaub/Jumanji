@@ -30,7 +30,7 @@ const jumanji = {
     }).then(result => { 
       // If no match is found, create the new player and set gameId and userId
       var avatar = "";
-      if (!avatarOpt) avatar="vforvend.png";
+      if (!avatarOpt) avatar="vforven";
       else avatar = avatarOpt;
       if (result === null) {
         db.players.create({
