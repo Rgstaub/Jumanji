@@ -21,13 +21,27 @@ module.exports = (app) => {
 
 // This returns an array of unstarted games and their properties
 app.get('/joingame/findgames', (req, res) => {
+  console.log(myData.myId);
   db.games.findAll({
     where: {
       state: "waiting"
+    }, include: {
+      model: db.players,
+      include: [db.users]
     }
   }).then(games => {
+    res.json(games)
+    let filteredGames = [];
     let gameIds = [];
-    games.forEach(game => gameIds.push(game.id));
+    games.forEach(game => {
+      let userIds = [];
+      game.players.forEach(player => {
+        if (player.id === myData.myId) {
+          filteredGames.push(game)
+        }
+      })
+      gameIds.push(game.id);
+    }) 
     db.players.findAll({
       where: {
         gameId: gameIds
@@ -35,7 +49,7 @@ app.get('/joingame/findgames', (req, res) => {
       include: [db.users]
     }).then(players => {
       let sorted = sortGamesPlayers(games, players);
-      res.json(sorted);
+      //res.json(sorted);
     })
   })
 })
@@ -71,6 +85,12 @@ app.get('/resumegames/:userId', (req, res) => {
 
     
   })
+})
+
+// Set the userId for reference
+app.post('/setUserId/:userId', (req, res) => {
+  myData.myId = req.params.userId;
+  console.log(myData.myId);
 })
 
 // This creates a new game based on input from the front-end
