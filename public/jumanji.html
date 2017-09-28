@@ -27,19 +27,6 @@
         //     status.innerHTML = mouseX+" | "+mouseY; 
         // });
 
-<<<<<<< HEAD
-            // dynamically create squares when user clicks mouse
-            var ctx = document.getElementById('myCanvas').getContext('2d');
-                ctx.canvas.addEventListener('click', function(event){
-                var mouseX = event.clientX - ctx.canvas.offsetLeft;
-                var mouseY = event.clientY - ctx.canvas.offsetTop;
-                var status = document.getElementById('status');
-                // alert(mouseX+" | "+mouseY);
-                ctx.fillStyle = "red";
-                ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
-            });
-            }
-=======
         //dynamically create squares when user clicks mouse
         // var ctx = document.getElementById('myCanvas').getContext('2d');
         //     ctx.canvas.addEventListener('click', function(event){
@@ -51,7 +38,6 @@
         //     ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
         // });
     }
->>>>>>> f5b9482e397107dea5edf9774d1346602f8d0b22
             // window.onload = draw;
 
             drawplayer1 = function(position, avatar){
@@ -164,6 +150,10 @@
     <img id="skull" src="assets/img/skull.png" style="display: none">
     <img id="sun" src="assets/img/sun.png" style="display: none">
     <img id="magnify" src="assets/img/magnify.png" style="display: none">
+    <img id="darth" src="assets/img/darth.png" style="display: none">
+    <img id="health" src="assets/img/health.png" style="display: none">
+    <img id="home" src="assets/img/home.png" style="display: none">
+    <img id="vforven" src="assets/img/vforven.png" style="display: none">
     <img id="sword" src="assets/img/sword.png" style="display: none">
 
     <!-- Intro Modal -->>
@@ -262,7 +252,7 @@
 
                     })
 
-                // $("diceBtn").onclick(function() {
+                // $("#diceBtn").on("click" function() {
                 //     alert("button clicked");
                 // randomNum = Math.floor(Math.random()*30+1);
                 // $("result").html(randomNum);
