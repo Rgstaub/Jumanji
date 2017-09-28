@@ -204,3 +204,11 @@ body, html {
     border: 1px solid white;
     color: white;
 }
+
+.choice {
+    padding: 5px;
+    border: solid 1px #BBB;
+    border-radius: 4px;
+    margin: 5px;
+    background-color: #DDD;
+}
