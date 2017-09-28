@@ -49,7 +49,7 @@ app.get('/joingame/findgames', (req, res) => {
       include: [db.users]
     }).then(players => {
       let sorted = sortGamesPlayers(games, players);
-      //res.json(sorted);
+      res.json(sorted);
     })
   })
 })
