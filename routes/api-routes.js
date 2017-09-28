@@ -30,25 +30,42 @@ app.get('/joingame/findgames', (req, res) => {
       include: [db.users]
     }
   }).then(games => {
-    res.json(games)
+    
     let filteredGames = [];
     let gameIds = [];
     games.forEach(game => {
+      console.log(game.gameName);
       let userIds = [];
+
       game.players.forEach(player => {
-        if (player.id === myData.myId) {
-          filteredGames.push(game)
-        }
+        console.log("player loop")
+        userIds.push(player.userId);
+        // if (player.userId == myData.myId) {
+        //   console.log("Skipped")
+        // } else {
+        //   filteredGames.push(game);
+        //   gameIds.push(game.id);
+        // }
       })
-      gameIds.push(game.id);
-    }) 
+      console.log("finished player loop")
+      console.log(userIds);
+
+      console.log(userIds.indexOf(parseInt(myData.myId)));
+      if (userIds.indexOf(parseInt(myData.myId)) === -1) {
+        filteredGames.push(game);
+        gameIds.push(game.id);
+      } else {
+        console.log("skipped game")
+      }
+    })
+    console.log(gameIds); 
     db.players.findAll({
       where: {
         gameId: gameIds
       },
       include: [db.users]
     }).then(players => {
-      let sorted = sortGamesPlayers(games, players);
+      let sorted = sortGamesPlayers(filteredGames, players);
       res.json(sorted);
     })
   })
@@ -66,13 +83,17 @@ app.get('/resumegames/:userId', (req, res) => {
       include: [db.players]
     }
   }).then( myPlayers => {
+    //res.json(myPlayers)
     let games = []
     let gameIds = [];
     myPlayers.forEach(myPlayer => {
       gameIds.push(myPlayer.gameId);
+      myPlayer.game.winningPlayer_id = myPlayer.id;
+
       games.push(myPlayer.game);
+      
     })
-    console.log(games);
+    //res.json(games);
     db.players.findAll({
       where: {
         gameId: gameIds
@@ -90,7 +111,7 @@ app.get('/resumegames/:userId', (req, res) => {
 // Set the userId for reference
 app.post('/setUserId/:userId', (req, res) => {
   myData.myId = req.params.userId;
-  console.log(myData.myId);
+  res.send("success");
 })
 
 // This creates a new game based on input from the front-end
@@ -332,6 +353,7 @@ const sortGamesPlayers = (games, players) => {
     gameObj.gameState = game.state;
     gameObj.turn = game.currentTurn;
     gameObj.id = game.id;
+    gameObj.myPlayerId = game.winningPlayer_id;
     // Add the name of each player in the game to the array
     players.forEach(player => {
       if (player.gameId === game.id) {
