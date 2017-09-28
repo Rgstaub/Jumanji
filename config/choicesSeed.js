@@ -13,7 +13,7 @@ module.exports = [
       "itemOption": true,
       "correctItemId": 2,
       "resultAction": "move",
-      "resultValue": 0,
+      "resultValue": 1,
       "resultText": "You swing your torch toward the lion and with an angry roar it retreats. You keep your torch up until it burns out.",
       "puzzleId": 1
     },
@@ -85,7 +85,7 @@ module.exports = [
       "itemOption": true,
       "correctItemId": 1,
       "resultAction": "move",
-      "resultValue": 0,
+      "resultValue": 2,
       "resultText": "You move through the field slashing apart any plant that even looks threatening, you emerge unscathed but the handle on your machete broke.",
       "puzzleId": 3
     },
@@ -130,7 +130,7 @@ module.exports = [
       "itemOption": true,
       "correctItemId": 3,
       "resultAction": "move",
-      "resultValue": -1,
+      "resultValue": 1,
       "resultText": "You manage to get a rope around a tree out of the sand and pull yourself to safety, but the rope is lost.",
       "puzzleId": 5
     },
@@ -193,7 +193,7 @@ module.exports = [
       "itemOption": true,
       "correctItemId": 3,
       "resultAction": "move",
-      "resultValue": 0,
+      "resultValue": 2,
       "resultText": "You use your rope and repel down the cliff face with ease. Your rope was tied so securely you cannot get it back.",
       "puzzleId": 7
     },
@@ -256,7 +256,7 @@ module.exports = [
       "itemOption": true,
       "correctItemId": 2,
       "resultAction": "move",
-      "resultValue": 0,
+      "resultValue": 3,
       "resultText": "Whatever is moving around in the dark runs from the torch and you make it through with no trouble at all. Once you make it outside the torch is extinguished in the wet and humid conditions.",
       "puzzleId": 9
     },
@@ -319,7 +319,7 @@ module.exports = [
       "itemOption": true,
       "correctItemId": 1,
       "resultAction": "move",
-      "resultValue": 0,
+      "resultValue": 1,
       "resultText": "You bury your machete blade into the closest spider and slice its friend in half and the rest sink back into the jungle. You cannot pull your machete out of the spiders body and must leave it behind.",
       "puzzleId": 11
     },
@@ -382,7 +382,7 @@ module.exports = [
       "itemOption": true,
       "correctItemId": 3,
       "resultAction": "move",
-      "resultValue": 0,
+      "resultValue": 1,
       "resultText": "You use a rope to pull yourself across the river safely. It snaps after you get across.",
       "puzzleId": 13
     },
@@ -751,7 +751,7 @@ module.exports = [
       "itemOption": true,
       "correctItemId": 1,
       "resultAction": "move",
-      "resultValue": 0,
+      "resultValue": 2,
       "resultText": "You swing your machete into an arc killing the springbok that wandered close to you. The hyena immediately picks up the scent of the blood and you move on. Leaving your machete behind.",
       "puzzleId": 31
     },
