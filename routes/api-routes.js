@@ -121,7 +121,8 @@ app.post('/joingame/select/:gameId/:userId?/:avatar', (req, res) => {
         })
       })
     })
-  
+  }
+})
 
 app.get('/loadturn/:playerId', (req, res) => {
   jumanji.loadTurn(req.params.playerId, (result) => {

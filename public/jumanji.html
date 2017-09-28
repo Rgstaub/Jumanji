@@ -11,92 +11,97 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     
     <script type="text/javascript">
-        
-        // Player 1 Position Array
-        player1PosArray = [
-            [40,35],[95,45],[120,65],[135,95],[138,130],[138,170],[130,210],[125,250],[120,290],[118,330],[118,370],
-            [122,410],[145,450],[185,465],[218,465],[242,445],[250,410],[250,380],[250,350],[248,320],[235,280],
-            [230,240],[230,210],[230,170],[235,130],[255,90],[290,80],[325,80],[350,105],[360,130],[370,160]
-            ];
 
-    // Player 2 Position Array
-        player2PosArray = [
-            [38,512],[112,515],[150,512],[190,512],[230,512],[275,515],[320,525],[365,525],[405,530],[450,532],[490,530],
-            [535,515],[565,485],[580,450],[568,415],[530,400],[495,390],[460,390],[422,395],[390,410],[355,410],
-            [325,415],[292,415],[260,415],[220,405],[190,385],[175,350],[185,310],[205,288],[240,280],[270,280]
-            ];
-
-    // Player 3 Position Array
-        player3PosArray = [
-            [710,40],[640,50],[590,55],[545,55],[505,55],[450,45],[410,45],[365,35],[315,35],[270,35],[235,40],
-            [200,65],[190,85],[180,120],[200,150],[230,165],[265,175],[300,175],[330,170],[370,160],[405,155],
-            [438,152],[470,152],[510,152],[550,165],[575,190],[585,225],[578,258],[555,275],[520,285],[490,290]
-            ];
-
-    // Player 4 Position Array
-        player4PosArray = [
-            [710,510],[660,510],[635,475],[625,435],[625,395],[630,360],[635,320],[640,280],[645,250],[650,215],[650,180],
-            [645,145],[635,115],[610,90],[570,90],[530,105],[515,150],[515,180],[515,210],[515,240],[525,285],
-            [530,315],[540,345],[540,385],[530,425],[515,455],[490,475],[450,475],[425,458],[405,425],[395,390]
-        ];
-
-    // Player 4 Position Array
-
-        //add game board image to background
-        function draw() {
-            var ctx = document.getElementById('myCanvas').getContext('2d');
-            var img = document.getElementById("gameBoard");
-            ctx.drawImage(img, 10, 10, 800, 600);
+            //add game board image to background
+    function draw() {
+        var ctx = document.getElementById('myCanvas').getContext('2d');
+        var img = document.getElementById("gameBoard");
+        ctx.drawImage(img, 10, 10, 800, 600);
 
         //track coordinates of mouse movement
-        var ctx = document.getElementById('myCanvas').getContext('2d');
-            ctx.canvas.addEventListener('mousemove', function(event){
-            var mouseX = event.clientX - ctx.canvas.offsetLeft;
-            var mouseY = event.clientY - ctx.canvas.offsetTop;
-            var status = document.getElementById('status');
-            status.innerHTML = mouseX+" | "+mouseY; 
-        });
+        // var ctx = document.getElementById('myCanvas').getContext('2d');
+        //     ctx.canvas.addEventListener('mousemove', function(event){
+        //     var mouseX = event.clientX - ctx.canvas.offsetLeft;
+        //     var mouseY = event.clientY - ctx.canvas.offsetTop;
+        //     var status = document.getElementById('status');
+        //     status.innerHTML = mouseX+" | "+mouseY; 
+        // });
 
-        //dynamically create squares when user clicks mouse
-        var ctx = document.getElementById('myCanvas').getContext('2d');
-            ctx.canvas.addEventListener('click', function(event){
-            var mouseX = event.clientX - ctx.canvas.offsetLeft;
-            var mouseY = event.clientY - ctx.canvas.offsetTop;
-            var status = document.getElementById('status');
-            // alert(mouseX+" | "+mouseY);
+            //dynamically create squares when user clicks mouse
+            var ctx = document.getElementById('myCanvas').getContext('2d');
+                ctx.canvas.addEventListener('click', function(event){
+                var mouseX = event.clientX - ctx.canvas.offsetLeft;
+                var mouseY = event.clientY - ctx.canvas.offsetTop;
+                var status = document.getElementById('status');
+                // alert(mouseX+" | "+mouseY);
                 ctx.fillStyle = "red";
                 ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
             });
-
-        //Place avatars on canvas
-        var player1 = document.getElementById("skull");
-            // ctx.drawImage(player1, 40, 35, 60, 60);
-            // ctx.drawImage(player1, player1PosArray[p1Pos][0], posArray[p1pos][1], 60, 60);
-
-        var player2 = document.getElementById("magnify");
-            // ctx.drawImage(player2, 38, 512, 60, 60);
-            // ctx.drawImage(player2, player2PosArray[p2Pos][0], posArray[p2pos][1], 60, 60);
-
-        var player3 = document.getElementById("sun");
-            // ctx.drawImage(player3, 490, 290, 60, 60);
-            // ctx.drawImage(player3, player3PosArray[p3Pos][0], posArray[p3pos][1], 60, 60);
-
-        var player4 = document.getElementById("sword");
-            // ctx.drawImage(player4, 395, 390, 60, 60);
-            // ctx.drawImage(player4, player4PosArray[p4Pos][0], posArray[p4pos][1], 60, 60);
-                
             }
+            // window.onload = draw;
 
-            window.onload = draw;
+            drawplayer1 = function(position, avatar){
 
-            
-            // $("#introModal").text(gameObj.puzzle.puzzleId);
-            // $("#puzzleIntro").text(gameObj.puzzle.intro);
-            // $("#puzzleDescrip").text(gameObj.puzzle.description);
-            // $("#puzzleChoices").text(gameObj.puzzle.description.choices[]);
+                player1PosArray = [
+                [40,35],[95,45],[120,65],[135,95],[138,130],[138,170],[130,210],[125,250],[120,290],[118,330],[118,370],
+                [122,410],[145,450],[185,465],[218,465],[242,445],[250,410],[250,380],[250,350],[248,320],[235,280],
+                [230,240],[230,210],[230,170],[235,130],[255,90],[290,80],[325,80],[350,105],[360,130],[370,160]
+            ];
 
+                var p1Pos = position;
+                // console.log(p1Pos);
+                var ctx = document.getElementById('myCanvas').getContext('2d');
+                var player1 = document.getElementById(avatar);
+                // ctx.drawImage(player1, 40, 35, 60, 60);
+                ctx.drawImage(player1, player1PosArray[p1Pos][0], player1PosArray[p1Pos][1], 60, 60);
+            };
 
-        </script>
+            drawplayer2 = function(position, avatar) {
+
+                player2PosArray = [
+                [38,512],[112,515],[150,512],[190,512],[230,512],[275,515],[320,525],[365,525],[405,530],[450,532],[490,530],
+                [535,515],[565,485],[580,450],[568,415],[530,400],[495,390],[460,390],[422,395],[390,410],[355,410],
+                [325,415],[292,415],[260,415],[220,405],[190,385],[175,350],[185,310],[205,288],[240,280],[270,280]
+            ];
+
+                var p2Pos = position;
+                var ctx = document.getElementById('myCanvas').getContext('2d');
+                var player2 = document.getElementById(avatar);
+                // ctx.drawImage(player2, 38, 512, 60, 60);
+                ctx.drawImage(player2, player2PosArray[p2Pos][0], player2PosArray[p2Pos][1], 60, 60);
+            };
+
+            drawplayer3 = function(position, avatar) {
+
+                player3PosArray = [
+                [710,40],[640,50],[590,55],[545,55],[505,55],[450,45],[410,45],[365,35],[315,35],[270,35],[235,40],
+                [200,65],[190,85],[180,120],[200,150],[230,165],[265,175],[300,175],[330,170],[370,160],[405,155],
+                [438,152],[470,152],[510,152],[550,165],[575,190],[585,225],[578,258],[555,275],[520,285],[490,290]
+            ];
+
+                var p3Pos = position;
+                var ctx = document.getElementById('myCanvas').getContext('2d');
+                var player3 = document.getElementById(avatar);
+                // ctx.drawImage(player3, 490, 290, 60, 60);
+                ctx.drawImage(player3, player3PosArray[p3Pos][0], player3PosArray[p3Pos][1], 60, 60);
+            };
+
+            drawplayer4 = function(position, avatar) {
+
+                player4PosArray = [
+                [710,510],[660,510],[635,475],[625,435],[625,395],[630,360],[635,320],[640,280],[645,250],[650,215],[650,180],
+                [645,145],[635,115],[610,90],[570,90],[530,105],[515,150],[515,180],[515,210],[515,240],[525,285],
+                [530,315],[540,345],[540,385],[530,425],[515,455],[490,475],[450,475],[425,458],[405,425],[395,390]
+            ];
+                
+                var p4Pos = position;
+                var ctx = document.getElementById('myCanvas').getContext('2d');
+                var player4 = document.getElementById(avatar);
+                // ctx.drawImage(player4, 395, 390, 60, 60);
+                ctx.drawImage(player4, player4PosArray[p4Pos][0], player4PosArray[p4Pos][1], 60, 60); 
+            };
+
+</script>
     
 </head>
 
@@ -130,6 +135,7 @@
                 <div class="dice-wrap">
                     <img id="dice" src="assets/img/dice.png">
                     <button id="diceBtn">Roll Dice</button>
+                    <div id="result">Spaces</div
                 </div>
 
     </div>
@@ -146,51 +152,64 @@
     <img id="magnify" src="assets/img/magnify.png" style="display: none">
     <img id="sword" src="assets/img/sword.png" style="display: none">
 
-    <!-- Model to display puzzle intro -->>
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 id="introModal" class="modal-title">Puzzle Intro</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="puzzleIntro">Content</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="btnGreen" class="btn btn-secondary">Accept Challenge</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
+    <!-- Intro Modal -->>
+    <!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-1">
+        Launch Modal 1
+      </button>  
+        
+      <div class="modal fade" id="modal-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Jumanji Riddle</h4>
             </div>
-        </div>
-
-            <!-- Modal to display puzzle description and choices -->
-    
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Puzzle Description and Choices</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="puzzleDescrip"></p>
-                        <p id="puzzleChoices"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="btnGreen" class="btn btn-primary">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
+            <div class="modal-body">
+                    <p id="puzzleIntro"></p>
+              
+        <a href="#modal-2" data-toggle="modal" data-dismiss="modal">Click here to accept challenge!</a>
+      
+              
             </div>
-        </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->  
+        
+        
+        
+        <!-- #modal 2 -->
+      <div class="modal fade" id="modal-2">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Jumanji Riddle</h4>
+            </div>
+            <div class="modal-body">
+                    <p id="puzzleDescrip"></p>
+                    <p id="puzzleChoices"></p>
+                    <form> 
+                        <p>Choose your best tactic for survival:</p> 
+                            <!-- <input type="radio" name="chooseone" value="choice1">
+                                <label for="choice1"><div id="choice1">choice 1</div></label><br> 
+                            <input type="radio" name="chooseone" value="choice2">
+                                <label for="choice2"><div id="choice2"></div></label><br> 
+                            <input type="radio" name="chooseone" value="choice3">
+                                <label for="choice3"><div id="choice3"></div></label><br>  -->
+                    </form>
+              
+        <!-- <a href="#modal-1" data-toggle="modal" data-dismiss="modal">< Previous</a> -->
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
         <!-- <script src="assets/js/gameClient.js></script> -->
 
         <script type="text/javascript">
@@ -199,7 +218,7 @@
                 console.log("The dice have been rolled");
               });
 
-                var myId = 1;
+                var myId = 2;
             
                 var string = "/loadturn/";
                 string = string + myId
@@ -211,7 +230,34 @@
                     url: string
                     }).done(function(gameObj) {
                     console.log(gameObj);
-                })
+
+                    draw();
+
+                    // drawplayer1(gameObj.myPosition, gameObj.myAvatar);
+                    // drawplayer2(gameObj.myPosition, gameObj.myAvatar);
+                    // drawplayer3(gameObj.myPosition, gameObj.myAvatar);
+                    // drawplayer4(gameObj.myPosition, gameObj.myAvatar);
+
+                    $("#puzzleIntro").text(gameObj.puzzle.intro);
+
+                    $("#puzzleDescrip").text(gameObj.puzzle.description);
+                    
+                    gameObj.puzzle.choices.forEach(function(choices) {
+                    var container = $('<input type="radio"><div><label for="choice1"></div></input>');
+                    container.text(choices.text);
+                    $('#puzzleChoices').append(container);
+
+                    })
+
+                    })
+
+                // $("diceBtn").onclick(function() {
+                //     alert("button clicked");
+                // randomNum = Math.floor(Math.random()*30+1);
+                // $("result").html(randomNum);
+                // });
+
+                // draw();
             
     </script>
 
