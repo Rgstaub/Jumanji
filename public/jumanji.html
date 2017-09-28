@@ -71,19 +71,19 @@
         //Place avatars on canvas
         var player1 = document.getElementById("skull");
             // ctx.drawImage(player1, 40, 35, 60, 60);
-            ctx.drawImage(player1, player1PosArray[p1Pos][0], posArray[p1pos][1], 60, 60);
+            // ctx.drawImage(player1, player1PosArray[p1Pos][0], posArray[p1pos][1], 60, 60);
 
         var player2 = document.getElementById("magnify");
             // ctx.drawImage(player2, 38, 512, 60, 60);
-            ctx.drawImage(player2, player2PosArray[p2Pos][0], posArray[p2pos][1], 60, 60);
+            // ctx.drawImage(player2, player2PosArray[p2Pos][0], posArray[p2pos][1], 60, 60);
 
         var player3 = document.getElementById("sun");
             // ctx.drawImage(player3, 490, 290, 60, 60);
-            ctx.drawImage(player3, player3PosArray[p3Pos][0], posArray[p3pos][1], 60, 60);
+            // ctx.drawImage(player3, player3PosArray[p3Pos][0], posArray[p3pos][1], 60, 60);
 
         var player4 = document.getElementById("sword");
             // ctx.drawImage(player4, 395, 390, 60, 60);
-            ctx.drawImage(player4, player4PosArray[p4Pos][0], posArray[p4pos][1], 60, 60);
+            // ctx.drawImage(player4, player4PosArray[p4Pos][0], posArray[p4pos][1], 60, 60);
                 
             }
 
@@ -108,10 +108,6 @@
         <canvas id="myCanvas" width="800" height="600">
 
         </canvas>
-
-        <!-- <div class="dice-wrap">
-                <img id="dice" src="assets/img/dice.png">
-        </div> -->
                 <div class="inventory">
                     <h2 id="pack">Survival Pack</h2>
                         <p id="packMessage" >Should you find yourself in too deep<br>
@@ -129,6 +125,11 @@
                             </ul>
                     </div>
 
+                </div>
+
+                <div class="dice-wrap">
+                    <img id="dice" src="assets/img/dice.png">
+                    <button id="diceBtn">Roll Dice</button>
                 </div>
 
     </div>
@@ -190,9 +191,13 @@
                 </div>
             </div>
         </div>
-        <script src="assets/js/gameClient.js></script>
+        <!-- <script src="assets/js/gameClient.js></script> -->
 
         <script type="text/javascript">
+
+            $( "#diceBtn" ).click(function() {
+                console.log("The dice have been rolled");
+              });
 
                 var myId = 1;
             

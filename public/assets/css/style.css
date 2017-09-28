@@ -156,7 +156,7 @@ body, html {
     height: 100px;
 }
 
-.inventory, .dice-wrap {
+.inventory {
     display: inline-block;
     vertical-align: top;
     padding-left: 40px;
@@ -172,9 +172,21 @@ body, html {
 }
 
 #dice {
-    height: 100px;
+    height: 15%;
+    position: absolute;
+    top: 60%;
+    left: 72%;
+    border: 2px solid black;
 }
 
 #btnGreen {
     background-color: #00602f;
+}
+
+#diceBtn {
+    background-color: grey;
+    color: white;
+    position: absolute;
+    top: 75%;
+    left: 75%;
 }
