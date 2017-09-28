@@ -82,9 +82,10 @@ app.post('/create/add/:gameName/:numPlayers', (req, res) => {
 })
 
 // This adds a player for the active user into the specified game
-app.post('/joingame/select/:gameId/:userId?/:avatar', (req, res) => {
+app.post('/joingame/select/:gameId/:userId/:avatar?', (req, res) => {
   let userId = myData.myId || req.params.userId;
   let playerId;
+  console.log(userId);
 
   if (!userId) {
     res.send("Error: No valid userId found");

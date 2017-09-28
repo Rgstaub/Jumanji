@@ -39,7 +39,7 @@ $(document).ready(function() {
 
 	$('.avatarImages').on('click', function() {
 		avatar = this.id;
-		console.log(avatar);
+		//console.log(avatar);
 	})
 
 

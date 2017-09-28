@@ -1,12 +1,16 @@
 $(document).ready(function() {
 
+  var chosenAvatar;
+  var userId = localStorage.jumanjiId;
+  console.log(userId);
+
   $.ajax({
     method: "get",
     url: "joingame/findgames"
   }).done(function(gameArr) {
     console.log(gameArr);
     gameArr.forEach(function(game) {
-      var gamePanel = $(`<div class="panel panel-default join-game fixed" val="${game.id}"></div>`);
+      var gamePanel = $(`<div class="panel panel-default join-game fixed" data-gameId="${game.id}"></div>`);
       var name = $(`<div class="panel panel-heading"></div>`);
       name.text(game.name);
       var players = $(`<div class="panel panel-body">Players in game:</div>`);
@@ -26,23 +30,27 @@ $(document).ready(function() {
 
   $(document).on("click",".join-game", function(){
     event.preventDefault();
-      //assemble the string for the API call
-      var joinStr = "joingame/select/"
-      var gameId = $(this).val();
-      console.log(gameId);
-      //collect  gameid avatar userID
-    //  var gameid=$(this).val;
-    //  var avatar = chosenAvatar;
-    //  var userId = 1;
-    //  var string = "joingame/select/"+ gameid + "/" + userId + "/" + avatar
+    var gameId = $(this).attr("data-gameId");
+    //assemble the string for the API call
+    var joinStr = "joingame/select/" + gameId + '/' + userId + '/';
+    if (chosenAvatar) {
+      joinStr += chosenAvatar;
+    }
+    console.log(joinStr);
 
-  // $.ajax({
-  // method: "post",
-  // url: string
-  // }).done (function(){
-  //     console.log("worked")
-  // })
+    $.post(joinStr).done(function(response) {
+      console.log(response);
+      var redirectUrl = "http://" + window.location.hostname + ":" + window.location.port + "/jumanji.html";
+      console.log(redirectUrl);
+      window.location.replace(redirectUrl);
+    })
 
 
+
+	})
+
+  $('.avatarImages').on('click', function() {
+		chosenAvatar = this.id;
+		console.log(chosenAvatar);
   })
 })
