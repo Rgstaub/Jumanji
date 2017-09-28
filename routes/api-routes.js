@@ -83,13 +83,9 @@ app.post('/create/add/:gameName/:numPlayers', (req, res) => {
 
 // This adds a player for the active user into the specified game
 app.post('/joingame/select/:gameId/:userId?/:avatar', (req, res) => {
-  console.log("\nID from server:");
-  console.log(myData.myId)
   let userId = myData.myId || req.params.userId;
-  let playerId
-  console.log("\nID from request");
-  console.log(userId)
-  console.log(userId);
+  let playerId;
+
   if (!userId) {
     res.send("Error: No valid userId found");
   } else {
@@ -97,18 +93,12 @@ app.post('/joingame/select/:gameId/:userId?/:avatar', (req, res) => {
     // Add the new player row to the DB
     jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
       // Set that player's position to 0
-      console.log("\nPlayer added successfully");
-      console.log(player.id);
       jumanji.setPlayerPos(player.id, 0, (playerId) => {
-        console.log("position set successfully");
-        console.log(playerId);
         // Set that player's turn to 1
         jumanji.setPlayerTurn(playerId, 1, () => {
           console.log("turn set successfully");
           // Check if the game now has filled all its available spot.s. Start if so
           jumanji.checkForStart(req.params.gameId, (start) => {
-            console.log("\n");
-            console.log(player.id);
             if (start) {
               // Load the game board
               jumanji.loadTurn(player.id, (result) => {
@@ -121,7 +111,8 @@ app.post('/joingame/select/:gameId/:userId?/:avatar', (req, res) => {
         })
       })
     })
-  
+  }
+})
 
 app.get('/loadturn/:playerId', (req, res) => {
   jumanji.loadTurn(req.params.playerId, (result) => {

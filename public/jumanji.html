@@ -206,10 +206,7 @@
             
                 console.log(string);
             
-                $.ajax({
-                    method: "get",
-                    url: string
-                    }).done(function(gameObj) {
+                $.get(string).done(function(gameObj) {
                     console.log(gameObj);
                 })
             
