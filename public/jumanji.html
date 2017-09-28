@@ -49,7 +49,6 @@
             ];
 
                 var p1Pos = position;
-                // console.log(p1Pos);
                 var ctx = document.getElementById('myCanvas').getContext('2d');
                 var player1 = document.getElementById(avatar);
                 // ctx.drawImage(player1, 40, 35, 60, 60);
@@ -135,7 +134,7 @@
                 <div class="dice-wrap">
                     <img id="dice" src="assets/img/dice.png">
                     <button id="diceBtn">Roll Dice</button>
-                    <div id="result">Spaces</div
+                    <div id="result"></div
                 </div>
 
     </div>
@@ -169,7 +168,7 @@
               <h4 class="modal-title">Jumanji Riddle</h4>
             </div>
             <div class="modal-body">
-                    <p id="puzzleIntro"></p>
+                    <p id="puzzleIntro" style="text-align: left"></p>
               
         <a href="#modal-2" data-toggle="modal" data-dismiss="modal">Click here to accept challenge!</a>
       
@@ -192,17 +191,9 @@
               <h4 class="modal-title">Jumanji Riddle</h4>
             </div>
             <div class="modal-body">
-                    <p id="puzzleDescrip"></p>
-                    <p id="puzzleChoices"></p>
-                    <form> 
-                        <p>Choose your best tactic for survival:</p> 
-                            <!-- <input type="radio" name="chooseone" value="choice1">
-                                <label for="choice1"><div id="choice1">choice 1</div></label><br> 
-                            <input type="radio" name="chooseone" value="choice2">
-                                <label for="choice2"><div id="choice2"></div></label><br> 
-                            <input type="radio" name="chooseone" value="choice3">
-                                <label for="choice3"><div id="choice3"></div></label><br>  -->
-                    </form>
+                    <p id="puzzleDescrip" style="text-align: left"></p>
+                    <p style="text-align: left">Choose your survival tactic:</p> 
+                    <form id="puzzleChoices" style="text-align: left"></form>
               
         <!-- <a href="#modal-1" data-toggle="modal" data-dismiss="modal">< Previous</a> -->
               
@@ -234,31 +225,37 @@
 
                     draw();
 
-                    drawplayer1(gameObj.myPosition, gameObj.myAvatar);
-                    drawplayer2(gameObj.myPosition, gameObj.myAvatar);
-                    drawplayer3(gameObj.myPosition, gameObj.myAvatar);
-                    drawplayer4(gameObj.myPosition, gameObj.myAvatar);
+                    drawplayer1(0, 'skull');
 
                     $("#puzzleIntro").text(gameObj.puzzle.intro);
 
                     $("#puzzleDescrip").text(gameObj.puzzle.description);
-                    
+
                     gameObj.puzzle.choices.forEach(function(choices) {
-                    var container = $('<input type="radio"><div><label for="choice1"></div></input>');
+                    var container = $('<br><input type="radio"><label></label></input>');
                     container.text(choices.text);
                     $('#puzzleChoices').append(container);
 
+                    // drawplayer1(gameObj.myPosition, gameObj.myAvatar);
+                    // drawplayer2(gameObj.myPosition, gameObj.myAvatar);
+                    // drawplayer3(gameObj.myPosition, gameObj.myAvatar);
+                    // drawplayer4(gameObj.myPosition, gameObj.myAvatar);
+
+                    updatePos = function() {
+                        randomNum = Math.floor((Math.random()*11)+2);
+                        console.log("Number rolled: " + randomNum);
+                        $("#result").html(randomNum);
+                        var newPos = 0 + randomNum;
+                        drawplayer1(newPos, 'skull');
+                    }
                     })
 
                     })
 
-                // $("#diceBtn").on("click" function() {
-                //     alert("button clicked");
-                // randomNum = Math.floor(Math.random()*30+1);
-                // $("result").html(randomNum);
-                // });
+                    $("#diceBtn").on("click", function() {
+                        updatePos();
+                    });
 
-                // draw();
             
     </script>
 

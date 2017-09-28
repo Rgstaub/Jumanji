@@ -197,3 +197,10 @@ body, html {
     margin: 10px;
     float: left;
 }
+
+#result {
+    width: 80px;
+    height: 40px;
+    border: 1px solid white;
+    color: white;
+}
