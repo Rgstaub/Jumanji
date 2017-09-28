@@ -55,6 +55,7 @@ const jumanji = {
   loadTurn: (playerId, cb) => {
     // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
     console.log("\n\n LOAD TURN \n\n")
+    console.log(playerId);
     let gameObj = {
       inventory: [
         // {
@@ -95,7 +96,7 @@ const jumanji = {
         // }
       ]
     }
-    
+    console.log(playerId);
     // Get the specified player find the current turn
     db.players.findById(playerId, {include: [
       db.turns, db.users, {
@@ -112,12 +113,13 @@ const jumanji = {
       gameObj.myPlayerId = playerId;
       gameObj.myAvatar = player.avatar;
       gameObj.gameTurn = player.game.currentTurn;
-
+      console.log(playerId);
       player.game.players.forEach(player => {
-        
-        if (player.id !== playerId) {
+        console.log("player.id " + player.id)  
+        if (parseInt(player.id) !== parseInt(playerId)) {
           let opponent = {
             name: player.user.name,
+            playerId: player.id,
             position: player.position,
             turn: player.turn,
             avatar: player.avatar

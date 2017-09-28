@@ -235,9 +235,15 @@
                     draw();
 
                     drawplayer1(gameObj.myPosition, gameObj.myAvatar);
-                    drawplayer2(gameObj.opponents.position, gameObj.opponents.avatar);
-                    drawplayer3(gameObj.opponents.position, gameObj.opponents.avatar);
-                    drawplayer4(gameObj.opponents.position, gameObj.opponents.avatar);
+                    if (gameObj.opponents.length > 0) {
+                        drawplayer2(gameObj.opponents[0].position, gameObj.opponents[0].avatar);
+                    }
+                    if (gameObj.opponents.length > 1) {
+                        drawplayer3(gameObj.opponents[1].position, gameObj.opponents[1].avatar);
+                    }
+                    if (gameObj.opponents.length > 2) {
+                        drawplayer4(gameObj.opponents[2].position, gameObj.opponents[2].avatar);
+                    }
 
                     $("#puzzleIntro").text(gameObj.puzzle.intro);
 
