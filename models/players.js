@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     turn: DataTypes.INTEGER,
     avatar: {
       type: DataTypes.STRING,
-      defaultValue: "vforven.png"
+      defaultValue: "sword"
     },
     position: DataTypes.INTEGER,
     playerName: DataTypes.STRING,
