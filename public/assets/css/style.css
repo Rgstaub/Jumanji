@@ -1,6 +1,6 @@
 body, html {
     height: 100%;
-    
+    font-family: 'Caesar Dressing', cursive;    
     background-image: url("../img/jungle-background-wallpaper-download-wallpapers-6.jpeg");
     background-position: center;
     background-repeat: no-repeat;
@@ -204,3 +204,4 @@ body, html {
     border: 1px solid white;
     color: white;
 }
+
