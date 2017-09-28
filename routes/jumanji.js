@@ -54,7 +54,7 @@ const jumanji = {
   // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
   loadTurn: (playerId, cb) => {
     // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
-    console.log("\n\n LOAD TURN \n\n")
+    console.log("\nLOAD TURN\n")
     console.log(playerId);
     let gameObj = {
       inventory: [
