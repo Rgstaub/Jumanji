@@ -190,3 +190,10 @@ body, html {
     top: 75%;
     left: 75%;
 }
+
+.fixed{
+    color:black;
+    width: 220px;
+    margin: 10px;
+    float: left;
+}

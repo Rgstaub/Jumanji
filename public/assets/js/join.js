@@ -1,44 +1,56 @@
 $(document).ready(function() {
 
-$.ajax({
-  method: "get",
-  url: "joingame/findgames"
-}).done(function(gameArr) {
-  console.log(gameArr);
-  gameArr.forEach(function(game) {
-    var row = $('<tr></tr>');
-    var name = $(`<td value=${game.id} class="clickable">${game.name}</td>`);
-    var available = $(`<td>${game.available}</td>`);
-    var players = $(`<td></td>`);
-    var playerName = ""
-    game.players.forEach(function(player){
-        playerName += player.name + " "
+  var chosenAvatar;
+  var userId = localStorage.jumanjiId;
+  console.log(userId);
+
+  $.ajax({
+    method: "get",
+    url: "joingame/findgames"
+  }).done(function(gameArr) {
+    console.log(gameArr);
+    gameArr.forEach(function(game) {
+      var gamePanel = $(`<div class="panel panel-default join-game fixed" data-gameId="${game.id}"></div>`);
+      var name = $(`<div class="panel panel-heading"></div>`);
+      name.text(game.name);
+      var players = $(`<div class="panel panel-body">Players in game:</div>`);
+      var available = $(`<div class="panel panel-body"></div>`);
+      available.text(`Open Spots: ${game.available}`);
+      var playerName = ""
+      game.players.forEach(function(player){
+          playerName = $(`<p>${player}</p>`);
+          players.append(playerName);
+      })
+      gamePanel.append(name);
+      gamePanel.append(available);
+      gamePanel.append(players)
+      $("#joinable").append(gamePanel);
     })
-    row.append(name);
-    row.append(available);
-    row.append(playerName);
-    
-    
-    $("tbody").append (row)
   })
-})
 
-$(document).on("click",".clickable", function(){
-    //attach event to join game here
+  $(document).on("click",".join-game", function(){
+    event.preventDefault();
+    var gameId = $(this).attr("data-gameId");
+    //assemble the string for the API call
+    var joinStr = "joingame/select/" + gameId + '/' + userId + '/';
+    if (chosenAvatar) {
+      joinStr += chosenAvatar;
+    }
+    console.log(joinStr);
 
-    //collect  gameid avatar userID
-   var gameid=$(this).val;
-   var avatar = chosenAvatar;
-   var userId = 1;
-   var string = "joingame/select/"+ gameid + "/" + userId + "/" + avatar
+    $.post(joinStr).done(function(response) {
+      console.log(response);
+      var redirectUrl = "http://" + window.location.hostname + ":" + window.location.port + "/jumanji.html";
+      console.log(redirectUrl);
+      window.location.replace(redirectUrl);
+    })
 
-$.ajax({
-method: "post",
-url: string
-}).done (function(){
-    console.log("worked")
-})
 
-})
 
+	})
+
+  $('.avatarImages').on('click', function() {
+		chosenAvatar = this.id;
+		console.log(chosenAvatar);
+  })
 })

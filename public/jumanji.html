@@ -14,6 +14,7 @@
 
             //add game board image to background
     function draw() {
+        alert("DING");
         var ctx = document.getElementById('myCanvas').getContext('2d');
         var img = document.getElementById("gameBoard");
         ctx.drawImage(img, 10, 10, 800, 600);
@@ -27,6 +28,7 @@
         //     status.innerHTML = mouseX+" | "+mouseY; 
         // });
 
+<<<<<<< HEAD
             // dynamically create squares when user clicks mouse
             var ctx = document.getElementById('myCanvas').getContext('2d');
                 ctx.canvas.addEventListener('click', function(event){
@@ -38,6 +40,19 @@
                 ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
             });
             }
+=======
+        //dynamically create squares when user clicks mouse
+        // var ctx = document.getElementById('myCanvas').getContext('2d');
+        //     ctx.canvas.addEventListener('click', function(event){
+        //     var mouseX = event.clientX - ctx.canvas.offsetLeft;
+        //     var mouseY = event.clientY - ctx.canvas.offsetTop;
+        //     var status = document.getElementById('status');
+        //     // alert(mouseX+" | "+mouseY);
+        //     ctx.fillStyle = "red";
+        //     ctx.fillRect(mouseX-15, mouseY-15, 30, 30);
+        // });
+    }
+>>>>>>> f5b9482e397107dea5edf9774d1346602f8d0b22
             // window.onload = draw;
 
             drawplayer1 = function(position, avatar){
@@ -225,18 +240,15 @@
             
                 console.log(string);
             
-                $.ajax({
-                    method: "get",
-                    url: string
-                    }).done(function(gameObj) {
+                $.get(string).done(function(gameObj) {
                     console.log(gameObj);
 
                     draw();
 
-                    // drawplayer1(gameObj.myPosition, gameObj.myAvatar);
-                    // drawplayer2(gameObj.myPosition, gameObj.myAvatar);
-                    // drawplayer3(gameObj.myPosition, gameObj.myAvatar);
-                    // drawplayer4(gameObj.myPosition, gameObj.myAvatar);
+                    drawplayer1(gameObj.myPosition, gameObj.myAvatar);
+                    drawplayer2(gameObj.myPosition, gameObj.myAvatar);
+                    drawplayer3(gameObj.myPosition, gameObj.myAvatar);
+                    drawplayer4(gameObj.myPosition, gameObj.myAvatar);
 
                     $("#puzzleIntro").text(gameObj.puzzle.intro);
 

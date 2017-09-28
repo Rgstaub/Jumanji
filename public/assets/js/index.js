@@ -9,12 +9,16 @@ $(document).ready(function() {
     window.location.replace(redirectUrl);
 
   }
-  // Otherwise, sent get request to server for active games to be rendered
+  // Otherwise, send get request to server for active games to be rendered
   else {
-    let resumeUrl = "/resumegames/" + userId;
-    console.log(resumeUrl);
-    $.get(resumeUrl).done(function(response){
-      console.log(response);
+    let userIdStr = "/setUserId/" + userId;
+    console.log(userIdStr);
+    $.post(userIdStr).done(function() {
+      let resumeUrl = "/resumegames/" + userId;
+      console.log(resumeUrl);
+      $.get(resumeUrl).done(function(response){
+        console.log(response);
+      })
     })
   }
 
