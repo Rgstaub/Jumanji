@@ -259,7 +259,7 @@
                         console.log("Number rolled: " + randomNum);
                         $("#result").html(randomNum);
                         var newPos = gameObj.myPosition + randomNum;
-                        drawplayer1(newPos, gameObj.myAvatar);
+                        //drawplayer1(newPos, gameObj.myAvatar);
 
                         // this function sends data from the roll to a function in gameClient.js
                         endTurn(myId, newPos, gameObj.myTurn)
