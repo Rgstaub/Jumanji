@@ -160,12 +160,6 @@
     <img id="vforven" src="assets/img/vforven.png" style="display: none">
     <img id="sword" src="assets/img/sword.png" style="display: none">
 
-<<<<<<< HEAD
-=======
-    <!-- Link to index.html -->
-    <a href="index.html"><button id="home" class="btn btn-primary btn-lg">Home</button></a>
-
->>>>>>> Angela
     <!-- Intro Modal -->
     <!-- Button trigger modal -->
 <button id="playBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-1" style="display: none">
@@ -216,9 +210,7 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
 
-<<<<<<< HEAD
          <script src="assets/js/gameClient.js"></script> 
-=======
         <!-- #modal 3 -->
         <div class="modal fade" id="modal-3">
             <div class="modal-dialog">
@@ -242,7 +234,6 @@
             </div><!-- /.modal -->
 
         <!-- <script src="assets/js/gameClient.js></script> -->
->>>>>>> Angela
 
         <script type="text/javascript">
 
@@ -278,11 +269,9 @@
                     $("#puzzleDescrip").text(gameObj.puzzle.description);
 
                     gameObj.puzzle.choices.forEach(function(choices) {
-<<<<<<< HEAD
                     var container = $(`<div class="choice" data-turnId="${gameObj.turnId}" data-choiceId="${choices.choiceId}" ></div>`);
                     container.text(choices.text);
                     $('#puzzleChoices').append(container);
-=======
                         var container = $(`<div class="choice" value="${choices.choiceId}" ></div>`);
                         container.text(choices.text);
                         $('#puzzleChoices').append(container);
@@ -292,7 +281,6 @@
                         $("#choiceValue").text(gameObj.puzzle.choices.value);
 
                     });
->>>>>>> Angela
 
 
                     updatePos = function() {
