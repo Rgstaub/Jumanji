@@ -8,6 +8,10 @@ body, html {
     background-size: cover;
 }
 
+p {
+    font-family: sans-serif;
+}
+
 .bg {
 font-family: 'Caesar Dressing', cursive; 
     background-image: url("../img/jumanji_gameboard.svg");
@@ -243,4 +247,5 @@ font-family: 'Caesar Dressing', cursive;
     border-radius: 4px;
     margin: 5px;
     background-color: #DDD;
+    font-family: sans-serif;
 }

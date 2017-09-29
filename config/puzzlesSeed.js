@@ -206,7 +206,7 @@ module.exports = [
     {
       "id": 35,
       "puzzleRhyme": "Most myths actually have their origins in facts,\nThis shapeless monster may pick you for its next series of attacks.",
-      "puzzleScenario": "You hear a cacophonous wail as an entity seemingly made of smoke charges at you. Think of Eko.",
+      "puzzleScenario": "You hear a cacophonous wail as an entity seemingly made of smoke charges at you. Think of Eko to survive.",
       "puzzleImageUrl": ""
     }
   ]
