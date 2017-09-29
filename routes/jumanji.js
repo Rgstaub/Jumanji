@@ -6,7 +6,7 @@ const senderNumber = '+19802220114';
 
 // dependencies
 const db = require('../models/');
-const myData = require('./userdata');
+const myData = require('./userData.js');
 const path = require('path');
 
 /*
@@ -53,7 +53,7 @@ const jumanji = {
 
   // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
   loadTurn: (playerId, cb) => {
-    // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
+
     console.log("\nLOAD TURN\n")
     console.log(playerId);
     let gameObj = {
@@ -172,6 +172,7 @@ const jumanji = {
     }).then((status, player) => {
       db.players.findById(playerId).then(player => {
         // Get an array of the puzzles completed by the player already
+
         let completed = [];
         if (player.completedPuzzles) {
           completed = player.completedPuzzles.split(", ");
@@ -206,7 +207,7 @@ const jumanji = {
               {completedPuzzles: updatedCompletedPuzzles},
               {where: {id: player.id}}  
             ).then(status => {
-              return cb(status);
+              return cb(player.gameId);
             }) 
           })
         })
@@ -242,6 +243,52 @@ const jumanji = {
         cb(false);
       } else console.log('something went wrong');
     })
+  },
+
+  checkForWinner: (position, gameId, cb) => {
+    if (position > 30) {
+      console.log("Winner detected")
+      console.log("Game ID: " + gameId)
+      db.games.findById(gameId, {
+        include: {
+          model: db.players,
+          include: [db.users]
+        }
+      }).then(data => {
+        let gameName = data.gameName;
+        let winnerName;
+        let winnerId;
+        data.players.forEach(player => {
+          if (player.position > 30) {
+            winnerName = player.user.name;
+            winnerId = player.id;
+          }
+        })
+        db.games.update({state: "finished"}, {
+          where: {
+            id: gameId
+          }
+        }).then(() => {
+          data.players.forEach(player => {
+            if (player.id === winnerId) {
+              // message the winner?
+              sms.messages.create({
+                body: `Congratulations, ${winnerName}! You have won game "${gameName}"!`,
+                to: player.user.phone,
+                from: senderNumber
+              })
+            } else {
+              sms.messages.create({
+                body: `You are too late! ${winnerName} has won game "${gameName}".`,
+                to: player.user.phone,
+                from: senderNumber
+              })
+            }
+          })
+          cb(true);
+        })
+      })
+    }
   },
 
   addToInventory: (playerId, itemId, cb) => {
@@ -280,15 +327,39 @@ const jumanji = {
     })
   },
 
-  checkId: (userId, cb) => {
-    if (userId) {
-      console.log(userId);
-      cb(true);
-    } else {
-      console.log('No ID detected');
-      cb(false);
-    }
+  checkGameTurn: (gameId, cb) => {
+    db.games.findById(gameId, {
+      include: [db.players]
+    }).then(game => {
+      let advanceTurn = true;
+      game.players.forEach(player => {
+        if (player.turn <= game.currentTurn) {
+          console.log("Not there yet");
+          advanceTurn = false;
+        }
+      })
+      if (advanceTurn) {
+        let newGameTurn = game.currentTurn + 1;
+        db.games.update({currentTurn: newGameTurn},{
+          where: {
+            id: gameId
+          }
+        }).then(status => {
+          cb(newGameTurn);
+        })
+      }
+    })
   },
+
+  // checkId: (userId, cb) => {
+  //   if (userId) {
+  //     console.log(userId);
+  //     cb(true);
+  //   } else {
+  //     console.log('No ID detected');
+  //     cb(false);
+  //   }
+  // },
 
 
 
