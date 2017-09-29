@@ -172,6 +172,7 @@ const jumanji = {
     }).then((status, player) => {
       db.players.findById(playerId).then(player => {
         // Get an array of the puzzles completed by the player already
+
         let completed = [];
         if (player.completedPuzzles) {
           completed = player.completedPuzzles.split(", ");

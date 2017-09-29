@@ -105,7 +105,7 @@
 </head>
 
 <body>
-    <audio autoplay loop>
+    <audio controls autoplay loop>
     <source src="assets/audio/drums.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
     </audio>
@@ -260,6 +260,9 @@
                         $("#result").html(randomNum);
                         var newPos = gameObj.myPosition + randomNum;
                         drawplayer1(newPos, gameObj.myAvatar);
+
+                        // this function sends data from the roll to a function in gameClient.js
+                        endTurn(myId, newPos, gameObj.myTurn)
                     }
                     })
 
