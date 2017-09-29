@@ -74,6 +74,7 @@ app.get('/resumegames/:userId', (req, res) => {
     },
     include: {
       model: db.games,
+      where: {state: active},
       include: [db.players]
     }
   }).then( myPlayers => {
