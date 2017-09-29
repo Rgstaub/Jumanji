@@ -280,22 +280,22 @@
                         container.text(choices.text);
                         $('#puzzleChoices').append(container);
 
-                    $(".choice").on("click", function() {
+                    $(".choice").click(function() {
                         $("#choiceResult").text(gameObj.puzzle.choices.result);
                         $("#choiceValue").text(gameObj.puzzle.choices.value);
 
                     });
 
-
+                    //function to update player position
                     updatePos = function() {
-                        
                         randomNum = Math.floor((Math.random()*11)+2);
                         console.log("Number rolled: " + randomNum);
                         $("#result").html(randomNum);
                         var newPos = gameObj.myPosition + randomNum;
                         drawplayer1(newPos, gameObj.myAvatar);
                     };
-
+                    
+                    //modal button appears when it is the player's turn
                     if (gameObj.gameTurn === gameObj.myTurn) {
                         $("#playBtn").fadeIn("slow");
                     };
@@ -303,11 +303,11 @@
 
                         // this function sends data from the roll to a function in gameClient.js
                         endTurn(myId, newPos, gameObj.myTurn)
-                    }
                     })
+                    });
 
-                    })
-
+                    
+                    //when dice are rolled- function is called to update position
                     $("#diceBtn").on("click", function() {
                         updatePos();
                     });
