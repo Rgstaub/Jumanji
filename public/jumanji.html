@@ -292,18 +292,7 @@
                         console.log("Number rolled: " + randomNum);
                         $("#result").html(randomNum);
                         var newPos = gameObj.myPosition + randomNum;
-<<<<<<< HEAD
-                        drawplayer1(newPos, gameObj.myAvatar);
-                    };
-                    
-                    //modal button appears when it is the player's turn
-                    if (gameObj.gameTurn === gameObj.myTurn) {
-                        $("#playBtn").fadeIn("slow");
-                    };
-
-=======
                         //drawplayer1(newPos, gameObj.myAvatar);
->>>>>>> 543940f119e1f2daa097e19c86f020b52f455654
 
                         // this function sends data from the roll to a function in gameClient.js
                         endTurn(myId, newPos, gameObj.myTurn)
