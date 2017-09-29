@@ -196,8 +196,11 @@ app.post('/endturn/:playerId/:position/:turn', (req, res) => {
   let turn = parseInt(req.params.turn) + 1;
   console.log(turn);
   jumanji.setPlayerPos(playerId, position, () => {
-    jumanji.setPlayerTurn(playerId, turn, (player) => {
-      res.send(player);
+    jumanji.setPlayerTurn(playerId, turn, (gameId) => {
+      jumanji.checkGameTurn(gameId, (response) => {
+        res.json(response);
+      })
+      
     })
   })
 })
