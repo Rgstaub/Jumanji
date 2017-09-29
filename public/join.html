@@ -7,11 +7,17 @@
     
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Caesar+Dressing" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
 
 <body>
+    <audio autoplay loop>
+    <source src="assets/audio/drums.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+
     <div class="container">
         <div class="row">
             <div class="jumbotron jumbo">
@@ -39,9 +45,10 @@
             </div>
             <div class="col-lg-6 bodyDiv">
                 <h2>Join Game</h2>
-                  <button type="button" class="btn btn-primary btn-block">After you've chosen your avatar and game clike here to continue!</button>
-                <div class="row tableRow">
-                    <table class="table joinableGamesTable">
+                  <button type="button" class="btn btn-primary btn-block">After you've chosen your avatar, click a game to join!</button>
+                <div class="row tableRow" id="joinable">
+                    
+                    <!-- <table class="table joinableGamesTable">
                         <thead>
                             <tr>
                                 <th>Game Name</th>
@@ -72,7 +79,7 @@
                             </tr>
 
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
             </div>
         </div>
@@ -80,6 +87,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="assets/js/create.js"></script>
+    <script type="text/javascript" src="assets/js/join.js"></script>
 </body>
 
 </html>

@@ -21,13 +21,73 @@ module.exports = (app) => {
 
 // This returns an array of unstarted games and their properties
 app.get('/joingame/findgames', (req, res) => {
+  console.log(myData.myId);
   db.games.findAll({
     where: {
       state: "waiting"
+    }, include: {
+      model: db.players,
+      include: [db.users]
     }
   }).then(games => {
+    
+    let filteredGames = [];
     let gameIds = [];
-    games.forEach(game => gameIds.push(game.id));
+    games.forEach(game => {
+      console.log(game.gameName);
+      let userIds = [];
+
+      game.players.forEach(player => {
+        console.log("player loop")
+        userIds.push(player.userId);
+      })
+      console.log("finished player loop")
+      console.log(userIds);
+
+      console.log(userIds.indexOf(parseInt(myData.myId)));
+      if (userIds.indexOf(parseInt(myData.myId)) === -1) {
+        filteredGames.push(game);
+        gameIds.push(game.id);
+      } else {
+        console.log("skipped game")
+      }
+    })
+    console.log(gameIds); 
+    db.players.findAll({
+      where: {
+        gameId: gameIds
+      },
+      include: [db.users]
+    }).then(players => {
+      let sorted = sortGamesPlayers(filteredGames, players);
+      res.json(sorted);
+    })
+  })
+})
+
+// This return an array of active games for a given player
+app.get('/resumegames/:userId', (req, res) => {
+  let userId = req.params.userId;
+  db.players.findAll({
+    where: {
+      userId: userId
+    },
+    include: {
+      model: db.games,
+      include: [db.players]
+    }
+  }).then( myPlayers => {
+    //res.json(myPlayers)
+    let games = []
+    let gameIds = [];
+    myPlayers.forEach(myPlayer => {
+      gameIds.push(myPlayer.gameId);
+      myPlayer.game.winningPlayer_id = myPlayer.id;
+
+      games.push(myPlayer.game);
+      
+    })
+    //res.json(games);
     db.players.findAll({
       where: {
         gameId: gameIds
@@ -37,7 +97,15 @@ app.get('/joingame/findgames', (req, res) => {
       let sorted = sortGamesPlayers(games, players);
       res.json(sorted);
     })
+
+    
   })
+})
+
+// Set the userId for reference
+app.post('/setUserId/:userId', (req, res) => {
+  myData.myId = req.params.userId;
+  res.send("success");
 })
 
 // This creates a new game based on input from the front-end
@@ -49,42 +117,34 @@ app.post('/create/add/:gameName/:numPlayers', (req, res) => {
 })
 
 // This adds a player for the active user into the specified game
-app.post('/joingame/select/:gameId/:userId?/:avatar?', (req, res) => {
+app.post('/joingame/select/:gameId/:userId/:avatar?', (req, res) => {
   let userId = myData.myId || req.params.userId;
+  let playerId;
   console.log(userId);
+
   if (!userId) {
     res.send("Error: No valid userId found");
   } else {
     console.log("User " + userId + " found");
     // Add the new player row to the DB
     jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
-      // Set that player's turn to 0
-      jumanji.setPlayerPos(player.id, 0, (status) => {
-        if (status[0] !== 1) {
-          res.send(`You found a bug. Its creepy-crawly eyes peer into your soul.
-          Error: player position was not set properly when adding to game`)
-        } else {
-          // Set that player's position to 0
-          jumanji.setPlayerTurn(player.id, 1, (status) => {
-            if (status[0] !== 1) {
-              res.send(`You found a bug. You want to touch it but you are too scared.
-              You big baby.
-              Error: player turn was not set properly when adding to game`)
+      // Set that player's position to 0
+      jumanji.setPlayerPos(player.id, 0, (playerId) => {
+        // Set that player's turn to 1
+        jumanji.setPlayerTurn(playerId, 1, () => {
+          console.log("turn set successfully");
+          // Check if the game now has filled all its available spot.s. Start if so
+          jumanji.checkForStart(req.params.gameId, (start) => {
+            if (start) {
+              // Load the game board
+              jumanji.loadTurn(player.id, (result) => {
+                res.json(result);
+              });
             } else {
-              // Check if the game now has filled all its available spot.s. Start if so
-              jumanji.checkForStart(req.params.gameId, (start) => {
-                if (start) {
-                  // Load the game board
-                  jumanji.loadTurn(player.id, (result) => {
-                    res.json(result);
-                  });
-                } else {
-                  res.send("waiting for more player");
-                }
-              })
+              res.json(player.id);
             }
           })
-        }
+        })
       })
     })
   }
@@ -96,30 +156,49 @@ app.get('/loadturn/:playerId', (req, res) => {
   })
 })
 
-app.post('/submitchoice/:choiceId/:turnId/?:inventoryId', (req, res) => {
+app.post('/submitchoice/:choiceId/:turnId/:inventoryId?', (req, res) => {
   jumanji.submitChoice(req.params.choiceId, req.params.turnId, (itemBool, itemId, action, value, startingPos, playerId) => {
+    console.log("after first callback");
+    console.log(itemBool);
     if (itemBool) {
       jumanji.removeFromInventory(req.params.inventoryId, () => {
         let newPosition = startingPos + value;
         jumanji.setPlayerPos(playerId, newPosition, () => {
-          res.status(200);
+          res.send("you did it")
         })
       })
     } else if (action === "get item") {
       jumanji.addToInventory(playerId, value, () => {
-        res.status(200);
+        res.send("you did it");
       })
     } else if (action === "move") {
+      console.log("else if 'move'");
       let newPosition = startingPos + value;
+      console.log(value);
+      console.log(startingPos);
+      console.log(newPosition);
       jumanji.setPlayerPos(playerId, newPosition, () => {
-        res.status(200);
+        res.send("you did it");
       })
     } else if (action === "die") {
       jumanji.setPlayerPos(playerId, 0, () => {
-        res.status(200);
+        res.send("you did it");
       })
     }
     
+  })
+})
+
+app.post('/endturn/:playerId/:position/:turn', (req, res) => {
+  let playerId = req.params.playerId;
+  console.log(playerId);
+  let position = req.params.position;
+  let turn = parseInt(req.params.turn) + 1;
+  console.log(turn);
+  jumanji.setPlayerPos(playerId, position, () => {
+    jumanji.setPlayerTurn(playerId, turn, (player) => {
+      res.send(player);
+    })
   })
 })
 
@@ -127,11 +206,13 @@ app.post('/createuser', (req, res) => {
   // %%%%%%% Need to validate and sanitaze this user input before proceeding %%%%%%%%
   console.log(req.body)
   db.users.create({
-    id: req.body.id,
     name: req.body.name,
     email: req.body.email,
     phone: req.body.phone
-  }).then( response => res.send(response) );
+  }).then( response => {
+    myData.myId = response.id;
+    res.send(response); 
+  });
 })
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$       TEST AREA       $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -189,7 +270,6 @@ app.post('/createuser', (req, res) => {
           userId: req.params.userId,
           gameId: req.params.gameId
         }).then( response => {
-          //setPlayerName(response)
           res.send("done");
         })
       }
@@ -267,8 +347,8 @@ app.post('/createuser', (req, res) => {
       include: [db.items]
     }).then( inventories => res.json(inventories));
   })
-
 }
+
 
 
 
@@ -285,6 +365,7 @@ const sortGamesPlayers = (games, players) => {
     gameObj.gameState = game.state;
     gameObj.turn = game.currentTurn;
     gameObj.id = game.id;
+    gameObj.myPlayerId = game.winningPlayer_id;
     // Add the name of each player in the game to the array
     players.forEach(player => {
       if (player.gameId === game.id) {

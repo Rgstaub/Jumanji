@@ -30,7 +30,7 @@ const jumanji = {
     }).then(result => { 
       // If no match is found, create the new player and set gameId and userId
       var avatar = "";
-      if (!avatarOpt) avatar="vforvend.png";
+      if (!avatarOpt) avatar="vforven";
       else avatar = avatarOpt;
       if (result === null) {
         db.players.create({
@@ -54,7 +54,8 @@ const jumanji = {
   // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
   loadTurn: (playerId, cb) => {
     // This function sets up all the data needed for the game screen and send it to the handlebars for rendering
-    console.log("\n\n LOAD TURN \n\n")
+    console.log("\nLOAD TURN\n")
+    console.log(playerId);
     let gameObj = {
       inventory: [
         // {
@@ -63,10 +64,12 @@ const jumanji = {
         // }
       ],
       gameTurn: null,
+      
       myTurn: null, //
       myName: null, 
       myPlayerId: null, //
       myAvatar: null, //
+      turnId: null, //
       myPosition: null, //
       puzzle: {
         puzzleId: null, //
@@ -94,7 +97,7 @@ const jumanji = {
         // }
       ]
     }
-    
+    console.log(playerId);
     // Get the specified player find the current turn
     db.players.findById(playerId, {include: [
       db.turns, db.users, {
@@ -111,12 +114,13 @@ const jumanji = {
       gameObj.myPlayerId = playerId;
       gameObj.myAvatar = player.avatar;
       gameObj.gameTurn = player.game.currentTurn;
-
+      console.log(playerId);
       player.game.players.forEach(player => {
-        
-        if (player.id !== playerId) {
+        console.log("player.id " + player.id)  
+        if (parseInt(player.id) !== parseInt(playerId)) {
           let opponent = {
             name: player.user.name,
+            playerId: player.id,
             position: player.position,
             turn: player.turn,
             avatar: player.avatar
@@ -132,7 +136,7 @@ const jumanji = {
           currentTurn = turnObj
         }
       })
-
+      gameObj.turnId = currentTurn.id;
       gameObj.puzzle.puzzleId = currentTurn.puzzleId;
       gameObj.myPosition = currentTurn.startingPos;
 
@@ -146,9 +150,9 @@ const jumanji = {
           let choiceObj = {
             choiceId: choice.id,
             text: choice.text,
-            action: choice.action,
-            value: choice.value,
-            result: choice.result,
+            action: choice.resultAction,
+            value: choice.resultValue,
+            result: choice.resultText,
             item: choice.itemOption,
             correctItem: choice.correctItemId
           }
@@ -168,6 +172,7 @@ const jumanji = {
     }).then((status, player) => {
       db.players.findById(playerId).then(player => {
         // Get an array of the puzzles completed by the player already
+
         let completed = [];
         if (player.completedPuzzles) {
           completed = player.completedPuzzles.split(", ");
@@ -180,6 +185,7 @@ const jumanji = {
             id: {$not: completed}
           }
         }).then(puzzles => {
+          
           // Randomly select one puzzles
           let rand = Math.floor(Math.random() * puzzles.length);
           let randPuzzleId = puzzles[rand].id;
@@ -213,7 +219,7 @@ const jumanji = {
     db.players.update({position: pos}, {
       where: {id: playerId}
     }).then(status => {
-      return cb(status);
+      return cb(playerId);
     })
   },
 
@@ -257,19 +263,35 @@ const jumanji = {
   },
 
   submitChoice: (choiceId, turnId, cb) => {
+    console.log("submit choice function");
     db.turns.update({choiceId: choiceId}, {
       where: {
         id: turnId
       }
     }).then( () => {
+      console.log("after first then");
       db.turns.findById(turnId, {
         include: [db.choices]
       }).then( turn => {
-
-        cb(turn.choice.itemOption, turn.choice.correctItemId, turn.choice.resultAction, turn.choice.returnValue, turn.startingPos, turn.playerId)
+        console.log("after second then");
+        
+        cb(turn.choice.itemOption, turn.choice.correctItemId, turn.choice.resultAction, 
+          turn.choice.resultValue, turn.startingPos, turn.playerId)
       })
     })
-  }
+  },
+
+  checkId: (userId, cb) => {
+    if (userId) {
+      console.log(userId);
+      cb(true);
+    } else {
+      console.log('No ID detected');
+      cb(false);
+    }
+  },
+
+
 
 
 }

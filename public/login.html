@@ -6,11 +6,16 @@
     <title>Home Page</title>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Caesar+Dressing" rel="stylesheet">
     <meta charset="UTF-8">
     
 </head>
 
 <body>
+    <audio autoplay loop>
+    <source src="assets/audio/drums.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
 
     <div class="container">
         <div class="row">
@@ -27,22 +32,20 @@
 
             <div class="col-lg-6 bodyDiv2">
                 <div class="form-group">
-                <label for="usr">Name:</label>
-                <input type="text" class="form-control" id="usr">
+                    <label for="usr">Name:</label>
+                    <input type="text" class="form-control" id="usr">
+                </div>
+                <!-- <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="pwd">
+                </div> -->
+                <div class="form-group">
+                    <label for="usr">Email:</label>
+                    <input type="text" class="form-control" id="eMail">
                 </div>
                 <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd">
-                </div>
-
-
-                <div class="form-group">
-                <label for="usr">Email:</label>
-                <input type="text" class="form-control" id="eMail">
-                </div>
-                <div class="form-group">
-                <label for="usr">Phone Number:</label>
-                <input type="text" class="form-control" id="phoneNumber">
+                    <label for="usr">Phone Number:</label>
+                    <input type="text" class="form-control" id="phoneNumber">
                 </div>
 
                 <center><button type="button" class="btn btn-primary" id="submitBtn">Submit</button></center>
@@ -56,6 +59,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="assets/js/login.js"></script>
 </body>
 
 </html>
