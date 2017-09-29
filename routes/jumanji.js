@@ -207,7 +207,7 @@ const jumanji = {
               {completedPuzzles: updatedCompletedPuzzles},
               {where: {id: player.id}}  
             ).then(status => {
-              return cb(status);
+              return cb(player.gameId);
             }) 
           })
         })
@@ -281,15 +281,39 @@ const jumanji = {
     })
   },
 
-  checkId: (userId, cb) => {
-    if (userId) {
-      console.log(userId);
-      cb(true);
-    } else {
-      console.log('No ID detected');
-      cb(false);
-    }
+  checkGameTurn: (gameId, cb) => {
+    db.games.findById(gameId, {
+      include: [db.players]
+    }).then(game => {
+      let advanceTurn = true;
+      game.players.forEach(player => {
+        if (player.turn <= game.currentTurn) {
+          console.log("Not there yet");
+          advanceTurn = false;
+        }
+      })
+      if (advanceTurn) {
+        let newGameTurn = game.currentTurn + 1;
+        db.games.update({currentTurn: newGameTurn},{
+          where: {
+            id: gameId
+          }
+        }).then(status => {
+          cb(newGameTurn);
+        })
+      }
+    })
   },
+
+  // checkId: (userId, cb) => {
+  //   if (userId) {
+  //     console.log(userId);
+  //     cb(true);
+  //   } else {
+  //     console.log('No ID detected');
+  //     cb(false);
+  //   }
+  // },
 
 
 
