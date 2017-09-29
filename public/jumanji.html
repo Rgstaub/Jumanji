@@ -138,8 +138,8 @@
 
                 <div class="dice-wrap">
                     <img id="dice" src="assets/img/dice.png">
-                    <button id="diceBtn">Roll Dice</button>
-                    <div id="result"></div
+                    <button id="diceBtn" style="display: none">Roll Dice</button>
+                    <div id="result"></div>
                 </div>
 
     </div>
@@ -203,7 +203,7 @@
                     <p style="text-align: left">Choose your survival tactic:</p> 
                     <form id="puzzleChoices" style="text-align: left"></form>
               
-        <a href="#modal-3" data-toggle="modal" data-dismiss="modal">Click to find out if you will survive!</a>
+        <a href="#modal-3" data-toggle="modal" data-dismiss="modal"><br>Click to find out if you will survive!</a>
               
             </div>
             <div class="modal-footer">
@@ -222,9 +222,12 @@
                     <h4 class="modal-title">Jumanji Riddle Results</h4>
                 </div>
                 <div class="modal-body">
-                    <p style="text-align: left"><strong>Now you must face the consequences of your choice:</strong></p> 
+                    <p style="text-align: left"><strong>Now you must face the consequences of your choice!</strong></p> 
                     <p id="choiceResult" style="text-align: left"></p>
+                    <p style="text-align: left"><strong>Consequence:</strong></p>
                     <p id="choiceValue" style="text-align: left"></p>
+
+        <button id="RollBtn" type="button" class="btn btn-default" data-dismiss="modal">Roll the dice to make your move!</button>
                     
             <!-- <a href="#modal-1" data-toggle="modal" data-dismiss="modal">< Previous</a> -->
                     
@@ -296,12 +299,13 @@
                                 choiceText = choice.result;
                         }
                     })
-                    console.log(choiceText);
-                                console.log(choiceValue);
-                                console.log(choiceAction);
                         $("#choiceResult").text(choiceText);
                         $("#choiceValue").text(choiceValue);
                     
+                    });
+
+                    $("#RollBtn").on("click", function() {
+                        $("#diceBtn").fadeToggle("fast");
                     });
 
                     //modal button appears when it is the player's turn
@@ -315,6 +319,7 @@
                         console.log("Number rolled: " + randomNum);
                         $("#result").html(randomNum);
                         var newPos = gameObj.myPosition + randomNum;
+                        $(diceBtn).css("display", "none");
                         //drawplayer1(newPos, gameObj.myAvatar);
 
                         // this function sends data from the roll to a function in gameClient.js
