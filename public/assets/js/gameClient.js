@@ -1,14 +1,29 @@
+var endTurn = function(playerId, position, turn) {
+  
+  let endStr = `/endturn/${playerId}/${position}/${turn}`;
+  $.post(endStr).done(function(response) {
+    console.log(response);
+    location.reload();
+  })
+}
+
+
 $(document).ready(function() {
 
   $(document).on('click', '.choice', function() {
-    let choiceId = $(this).attr('data-choiceId');
-    let turnId = $(this).attr('data-turnId');
+    var choiceId = $(this).attr('data-choiceId');
+    var turnId = $(this).attr('data-turnId');
     console.log(choiceId);
     console.log(turnId);
-    let submitStr = "/submitchoice/" + choiceId + "/" + turnId + "/";
+    var submitStr = "/submitchoice/" + choiceId + "/" + turnId + "/";
     $.post(submitStr).done(function(response) {
       console.log(response);
     })
     
   })
+
+
+
+
+
 })

@@ -40,12 +40,6 @@ app.get('/joingame/findgames', (req, res) => {
       game.players.forEach(player => {
         console.log("player loop")
         userIds.push(player.userId);
-        // if (player.userId == myData.myId) {
-        //   console.log("Skipped")
-        // } else {
-        //   filteredGames.push(game);
-        //   gameIds.push(game.id);
-        // }
       })
       console.log("finished player loop")
       console.log(userIds);
@@ -170,12 +164,12 @@ app.post('/submitchoice/:choiceId/:turnId/:inventoryId?', (req, res) => {
       jumanji.removeFromInventory(req.params.inventoryId, () => {
         let newPosition = startingPos + value;
         jumanji.setPlayerPos(playerId, newPosition, () => {
-          res.status(200);
+          res.send("you did it")
         })
       })
     } else if (action === "get item") {
       jumanji.addToInventory(playerId, value, () => {
-        res.status(200);
+        res.send("you did it");
       })
     } else if (action === "move") {
       console.log("else if 'move'");
@@ -188,10 +182,23 @@ app.post('/submitchoice/:choiceId/:turnId/:inventoryId?', (req, res) => {
       })
     } else if (action === "die") {
       jumanji.setPlayerPos(playerId, 0, () => {
-        res.status(200);
+        res.send("you did it");
       })
     }
     
+  })
+})
+
+app.post('/endturn/:playerId/:position/:turn', (req, res) => {
+  let playerId = req.params.playerId;
+  console.log(playerId);
+  let position = req.params.position;
+  let turn = parseInt(req.params.turn) + 1;
+  console.log(turn);
+  jumanji.setPlayerPos(playerId, position, () => {
+    jumanji.setPlayerTurn(playerId, turn, (player) => {
+      res.send(player);
+    })
   })
 })
 
@@ -263,7 +270,6 @@ app.post('/createuser', (req, res) => {
           userId: req.params.userId,
           gameId: req.params.gameId
         }).then( response => {
-          //setPlayerName(response)
           res.send("done");
         })
       }
