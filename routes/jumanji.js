@@ -245,6 +245,12 @@ const jumanji = {
     })
   },
 
+  checkForWinner: (position) => {
+    if (position > 30) {
+
+    }
+  },
+
   addToInventory: (playerId, itemId, cb) => {
     db.inventories.create({
       playerId: playerId,
