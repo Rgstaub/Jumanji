@@ -114,7 +114,8 @@
     <div id="canvas-wrap">
 
         <canvas id="myCanvas" width="800" height="600">
-
+                <menu id="modalBtn">
+                </menu>
         </canvas>
                 <div class="inventory">
                     <h2 id="pack">Survival Pack</h2>
@@ -159,10 +160,16 @@
     <img id="vforven" src="assets/img/vforven.png" style="display: none">
     <img id="sword" src="assets/img/sword.png" style="display: none">
 
+<<<<<<< HEAD
+=======
+    <!-- Link to index.html -->
+    <a href="index.html"><button id="home" class="btn btn-primary btn-lg">Home</button></a>
+
+>>>>>>> Angela
     <!-- Intro Modal -->
     <!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-1">
-        Launch Modal 1
+<button id="playBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-1" style="display: none">
+        PLAY!
       </button>  
         
       <div class="modal fade" id="modal-1">
@@ -199,7 +206,7 @@
                     <p style="text-align: left">Choose your survival tactic:</p> 
                     <form id="puzzleChoices" style="text-align: left"></form>
               
-        <!-- <a href="#modal-1" data-toggle="modal" data-dismiss="modal">< Previous</a> -->
+        <a href="#modal-3" data-toggle="modal" data-dismiss="modal">< Previous</a>
               
             </div>
             <div class="modal-footer">
@@ -209,7 +216,33 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
 
+<<<<<<< HEAD
          <script src="assets/js/gameClient.js"></script> 
+=======
+        <!-- #modal 3 -->
+        <div class="modal fade" id="modal-3">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Jumanji Riddle Results</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="text-align: left">Now you must face the consequences of your choice:</p> 
+                    <p id="choiceResult" style="text-align: left"></p>
+                    <p id="choiceValue" style="text-align: left"></p>
+                    
+            <!-- <a href="#modal-1" data-toggle="modal" data-dismiss="modal">< Previous</a> -->
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+        <!-- <script src="assets/js/gameClient.js></script> -->
+>>>>>>> Angela
 
         <script type="text/javascript">
 
@@ -245,14 +278,22 @@
                     $("#puzzleDescrip").text(gameObj.puzzle.description);
 
                     gameObj.puzzle.choices.forEach(function(choices) {
+<<<<<<< HEAD
                     var container = $(`<div class="choice" data-turnId="${gameObj.turnId}" data-choiceId="${choices.choiceId}" ></div>`);
                     container.text(choices.text);
                     $('#puzzleChoices').append(container);
+=======
+                        var container = $(`<div class="choice" value="${choices.choiceId}" ></div>`);
+                        container.text(choices.text);
+                        $('#puzzleChoices').append(container);
 
-                    // drawplayer1(gameObj.myPosition, gameObj.myAvatar);
-                    // drawplayer2(gameObj.myPosition, gameObj.myAvatar);
-                    // drawplayer3(gameObj.myPosition, gameObj.myAvatar);
-                    // drawplayer4(gameObj.myPosition, gameObj.myAvatar);
+                    $(".choice").on("click", function() {
+                        $("#choiceResult").text(gameObj.puzzle.choices.result);
+                        $("#choiceValue").text(gameObj.puzzle.choices.value);
+
+                    });
+>>>>>>> Angela
+
 
                     updatePos = function() {
                         randomNum = Math.floor((Math.random()*11)+2);
@@ -260,7 +301,12 @@
                         $("#result").html(randomNum);
                         var newPos = gameObj.myPosition + randomNum;
                         drawplayer1(newPos, gameObj.myAvatar);
-                    }
+                    };
+
+                    if (gameObj.gameTurn === gameObj.myTurn) {
+                        $("#playBtn").fadeIn("slow");
+                    };
+
                     })
 
                     })
@@ -268,7 +314,6 @@
                     $("#diceBtn").on("click", function() {
                         updatePos();
                     });
-
             
     </script>
 
