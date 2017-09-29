@@ -160,6 +160,9 @@
     <img id="vforven" src="assets/img/vforven.png" style="display: none">
     <img id="sword" src="assets/img/sword.png" style="display: none">
 
+    <!-- Link to index.html -->
+    <a href="index.html"><button id="home" class="btn btn-primary btn-lg">Home</button></a>
+
     <!-- Intro Modal -->
     <!-- Button trigger modal -->
 <button id="playBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-1" style="display: none">
@@ -200,7 +203,7 @@
                     <p style="text-align: left">Choose your survival tactic:</p> 
                     <form id="puzzleChoices" style="text-align: left"></form>
               
-        <a href="#modal-3" data-toggle="modal" data-dismiss="modal">< Previous</a>
+        <a href="#modal-3" data-toggle="modal" data-dismiss="modal">Click to find out if you will survive!</a>
               
             </div>
             <div class="modal-footer">
@@ -219,7 +222,7 @@
                     <h4 class="modal-title">Jumanji Riddle Results</h4>
                 </div>
                 <div class="modal-body">
-                    <p style="text-align: left">Now you must face the consequences of your choice:</p> 
+                    <p style="text-align: left"><strong>Now you must face the consequences of your choice:</strong></p> 
                     <p id="choiceResult" style="text-align: left"></p>
                     <p id="choiceValue" style="text-align: left"></p>
                     
@@ -251,19 +254,23 @@
                 $.get(string).done(function(gameObj) {
                     console.log(gameObj);
 
+                //call function to draw canvas
                     draw();
 
+                //update player positions
                     drawplayer1(gameObj.myPosition, gameObj.myAvatar);
                     if (gameObj.opponents.length > 0) {
                         drawplayer2(gameObj.opponents[0].position, gameObj.opponents[0].avatar);
                     }
                     if (gameObj.opponents.length > 1) {
                         drawplayer3(gameObj.opponents[1].position, gameObj.opponents[1].avatar);
+                        
                     }
                     if (gameObj.opponents.length > 2) {
                         drawplayer4(gameObj.opponents[2].position, gameObj.opponents[2].avatar);
                     }
-
+                
+                //Update modals with puzzle info
                     $("#puzzleIntro").text(gameObj.puzzle.intro);
 
                     $("#puzzleDescrip").text(gameObj.puzzle.description);
@@ -272,41 +279,53 @@
                     var container = $(`<div class="choice" data-turnId="${gameObj.turnId}" data-choiceId="${choices.choiceId}" ></div>`);
                     container.text(choices.text);
                     $('#puzzleChoices').append(container);
-                        var container = $(`<div class="choice" value="${choices.choiceId}" ></div>`);
-                        container.text(choices.text);
-                        $('#puzzleChoices').append(container);
+                    
 
-                    $(".choice").on("click", function() {
-                        $("#choiceResult").text(gameObj.puzzle.choices.result);
-                        $("#choiceValue").text(gameObj.puzzle.choices.value);
-
+                    $(document).on("click", ".choice", function() {
+                        $(this).css("background-color", "#A0A0A0");
+                        var selectedChoice = $(this).attr("data-choiceId");
+    
+                        var choiceAction;
+                        var choiceValue;
+                        var choiceText;
+    
+                        gameObj.puzzle.choices.forEach(function(choice) {
+                            if (choice.choiceId = selectedChoice) {
+                                choiceAction = choice.action;
+                                choiceValue = choice.value;
+                                choiceText = choice.result;
+                        }
+                    })
+                    console.log(choiceText);
+                                console.log(choiceValue);
+                                console.log(choiceAction);
+                        $("#choiceResult").text(choiceText);
+                        $("#choiceValue").text(choiceValue);
+                    
                     });
 
+                    //modal button appears when it is the player's turn
+                    if (gameObj.gameTurn === gameObj.myTurn) {
+                            $("#playBtn").fadeIn("slow");
+                    };
 
+                    //function to update player position
                     updatePos = function() {
                         randomNum = Math.floor((Math.random()*11)+2);
                         console.log("Number rolled: " + randomNum);
                         $("#result").html(randomNum);
                         var newPos = gameObj.myPosition + randomNum;
-<<<<<<< HEAD
-                        drawplayer1(newPos, gameObj.myAvatar);
-                    };
-
-                    if (gameObj.gameTurn === gameObj.myTurn) {
-                        $("#playBtn").fadeIn("slow");
-                    };
-
-=======
                         //drawplayer1(newPos, gameObj.myAvatar);
 
                         // this function sends data from the roll to a function in gameClient.js
-                        endTurn(myId, newPos, gameObj.myTurn)
+                        endTurn(myId, newPos, gameObj.myTurn);
+
                     }
->>>>>>> b83adb04e0b0ed473710245b3fd16ed8bbb1a88f
+                    })
                     })
 
-                    })
-
+                    
+                    //when dice are rolled- function is called to update position
                     $("#diceBtn").on("click", function() {
                         updatePos();
                     });
