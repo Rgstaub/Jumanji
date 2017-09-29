@@ -3,7 +3,7 @@ var endTurn = function(playerId, position, turn) {
   let endStr = `/endturn/${playerId}/${position}/${turn}`;
   $.post(endStr).done(function(response) {
     console.log(response);
-    //location.reload();
+    location.reload();
   })
 }
 

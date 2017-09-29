@@ -1,5 +1,5 @@
 const jumanji = require('./jumanji.js');
-const myData = require('./userData');
+const myData = require('./userData.js');
 const path = require('path');
 
 

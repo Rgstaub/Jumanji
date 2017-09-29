@@ -251,3 +251,7 @@ font-family: 'Caesar Dressing', cursive;
     cursor: pointer; 
     cursor: hand; 
 }
+
+#openMod {
+    margin-left: 45%;
+}

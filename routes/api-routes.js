@@ -6,7 +6,7 @@ const senderNumber = '+19802220114';
 
 // dependencies
 const db = require('../models/');
-const myData = require('./userdata');
+const myData = require('./userData.js');
 const path = require('path');
 const jumanji = require('./jumanji.js');
 
@@ -74,6 +74,7 @@ app.get('/resumegames/:userId', (req, res) => {
     },
     include: {
       model: db.games,
+      where: {state: "active"},
       include: [db.players]
     }
   }).then( myPlayers => {
@@ -196,11 +197,13 @@ app.post('/endturn/:playerId/:position/:turn', (req, res) => {
   let turn = parseInt(req.params.turn) + 1;
   console.log(turn);
   jumanji.setPlayerPos(playerId, position, () => {
+    
     jumanji.setPlayerTurn(playerId, turn, (gameId) => {
-      jumanji.checkGameTurn(gameId, (response) => {
-        res.json(response);
+      jumanji.checkGameTurn(gameId, () => {
+        jumanji.checkForWinner(position, gameId, (response) => {
+          res.json(response);
+        })
       })
-      
     })
   })
 })
