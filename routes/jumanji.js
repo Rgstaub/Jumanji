@@ -245,9 +245,49 @@ const jumanji = {
     })
   },
 
-  checkForWinner: (position) => {
+  checkForWinner: (position, gameId, cb) => {
     if (position > 30) {
-
+      console.log("Winner detected")
+      console.log("Game ID: " + gameId)
+      db.games.findById(gameId, {
+        include: {
+          model: db.players,
+          include: [db.users]
+        }
+      }).then(data => {
+        let gameName = data.gameName;
+        let winnerName;
+        let winnerId;
+        data.players.forEach(player => {
+          if (player.position > 30) {
+            winnerName = player.user.name;
+            winnerId = player.id;
+          }
+        })
+        db.games.update({state: "finished"}, {
+          where: {
+            id: gameId
+          }
+        }).then(() => {
+          data.players.forEach(player => {
+            if (player.id === winnerId) {
+              // message the winner?
+              sms.messages.create({
+                body: `Congratulations, ${winnerName}! You have won game "${gameName}"!`,
+                to: player.user.phone,
+                from: senderNumber
+              })
+            } else {
+              sms.messages.create({
+                body: `You are too late! ${winnerName} has won game "${gameName}".`,
+                to: player.user.phone,
+                from: senderNumber
+              })
+            }
+          })
+          cb(true);
+        })
+      })
     }
   },
 

@@ -74,7 +74,7 @@ app.get('/resumegames/:userId', (req, res) => {
     },
     include: {
       model: db.games,
-      where: {state: active},
+      where: {state: "active"},
       include: [db.players]
     }
   }).then( myPlayers => {
@@ -197,9 +197,10 @@ app.post('/endturn/:playerId/:position/:turn', (req, res) => {
   let turn = parseInt(req.params.turn) + 1;
   console.log(turn);
   jumanji.setPlayerPos(playerId, position, () => {
-    jumanji.checkforWinner(position, () => {
-      jumanji.setPlayerTurn(playerId, turn, (gameId) => {
-        jumanji.checkGameTurn(gameId, (response) => {
+    
+    jumanji.setPlayerTurn(playerId, turn, (gameId) => {
+      jumanji.checkGameTurn(gameId, () => {
+        jumanji.checkForWinner(position, gameId, (response) => {
           res.json(response);
         })
       })
