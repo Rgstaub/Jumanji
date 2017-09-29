@@ -162,8 +162,10 @@ app.get('/loadturn/:playerId', (req, res) => {
   })
 })
 
-app.post('/submitchoice/:choiceId/:turnId/?:inventoryId', (req, res) => {
+app.post('/submitchoice/:choiceId/:turnId/:inventoryId?', (req, res) => {
   jumanji.submitChoice(req.params.choiceId, req.params.turnId, (itemBool, itemId, action, value, startingPos, playerId) => {
+    console.log("after first callback");
+    console.log(itemBool);
     if (itemBool) {
       jumanji.removeFromInventory(req.params.inventoryId, () => {
         let newPosition = startingPos + value;
@@ -176,9 +178,13 @@ app.post('/submitchoice/:choiceId/:turnId/?:inventoryId', (req, res) => {
         res.status(200);
       })
     } else if (action === "move") {
+      console.log("else if 'move'");
       let newPosition = startingPos + value;
+      console.log(value);
+      console.log(startingPos);
+      console.log(newPosition);
       jumanji.setPlayerPos(playerId, newPosition, () => {
-        res.status(200);
+        res.send("you did it");
       })
     } else if (action === "die") {
       jumanji.setPlayerPos(playerId, 0, () => {

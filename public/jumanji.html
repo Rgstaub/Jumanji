@@ -155,7 +155,7 @@
     <img id="vforven" src="assets/img/vforven.png" style="display: none">
     <img id="sword" src="assets/img/sword.png" style="display: none">
 
-    <!-- Intro Modal -->>
+    <!-- Intro Modal -->
     <!-- Button trigger modal -->
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-1">
         Launch Modal 1
@@ -205,7 +205,7 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
 
-        <!-- <script src="assets/js/gameClient.js></script> -->
+         <script src="assets/js/gameClient.js"></script> 
 
         <script type="text/javascript">
 
@@ -241,7 +241,7 @@
                     $("#puzzleDescrip").text(gameObj.puzzle.description);
 
                     gameObj.puzzle.choices.forEach(function(choices) {
-                    var container = $(`<div class="choice" value="${choices.choiceId}" ></div>`);
+                    var container = $(`<div class="choice" data-turnId="${gameObj.turnId}" data-choiceId="${choices.choiceId}" ></div>`);
                     container.text(choices.text);
                     $('#puzzleChoices').append(container);
 

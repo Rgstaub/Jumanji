@@ -69,6 +69,7 @@ const jumanji = {
       myName: null, 
       myPlayerId: null, //
       myAvatar: null, //
+      turnId: null, //
       myPosition: null, //
       puzzle: {
         puzzleId: null, //
@@ -135,7 +136,7 @@ const jumanji = {
           currentTurn = turnObj
         }
       })
-
+      gameObj.turnId = currentTurn.id;
       gameObj.puzzle.puzzleId = currentTurn.puzzleId;
       gameObj.myPosition = currentTurn.startingPos;
 
@@ -261,16 +262,20 @@ const jumanji = {
   },
 
   submitChoice: (choiceId, turnId, cb) => {
+    console.log("submit choice function");
     db.turns.update({choiceId: choiceId}, {
       where: {
         id: turnId
       }
     }).then( () => {
+      console.log("after first then");
       db.turns.findById(turnId, {
         include: [db.choices]
       }).then( turn => {
+        console.log("after second then");
+        
         cb(turn.choice.itemOption, turn.choice.correctItemId, turn.choice.resultAction, 
-          turn.choice.returnValue, turn.startingPos, turn.playerId)
+          turn.choice.resultValue, turn.startingPos, turn.playerId)
       })
     })
   },

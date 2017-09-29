@@ -21,6 +21,7 @@ $(document).ready(function() {
 					method: "POST",
 					url: createUrl
 				}).done(function(response) {
+					
 					console.log(response);
 					let selectUrl = '/joingame/select/' + response.id + '/' + localStorage.jumanjiId + '/' + avatar;
 					console.log(selectUrl);
@@ -28,7 +29,7 @@ $(document).ready(function() {
 						method: "POST",
 						url: selectUrl
 					}).done(function(response) {
-						console.log(response);
+						sessionStorage.setItem("jumanjiPlayerId", response.myPlayerId);
 						var redirectUrl = "http://" + window.location.hostname + ":" + window.location.port + "/jumanji.html";
 						console.log(redirectUrl);
 						window.location.replace(redirectUrl);
