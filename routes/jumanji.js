@@ -6,7 +6,7 @@ const senderNumber = '+19802220114';
 
 // dependencies
 const db = require('../models/');
-const myData = require('./userdata');
+const myData = require('./userData.js');
 const path = require('path');
 
 /*
