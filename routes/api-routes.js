@@ -74,7 +74,12 @@ app.get('/resumegames/:userId', (req, res) => {
     },
     include: {
       model: db.games,
-      where: {state: "active"},
+      where: {
+        $or:{
+          state: "active",
+          state: "waiting"
+        }
+      },
       include: [db.players]
     }
   }).then( myPlayers => {
