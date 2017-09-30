@@ -1,6 +1,7 @@
 var endTurn = function(playerId, position, turn) {
   
   let endStr = `/endturn/${playerId}/${position}/${turn}`;
+  console.log(endStr);
   $.post(endStr).done(function(response) {
     console.log(response);
     location.reload();
