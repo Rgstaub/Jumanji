@@ -30,7 +30,7 @@ font-family: 'Caesar Dressing', cursive;
     border-style: solid;
     border-width: 10px;
     color: white;
-    border-color: #00602f;   
+    border-color: #0f1c05;  
 
 }
 
@@ -44,7 +44,7 @@ font-family: 'Caesar Dressing', cursive;
         border-width: 10px;
         color: white;
         /*border-color: #00602f;*/ 
-    border-color: black;
+    border-color: #0f1c05;
 }
 
 .skullJungleDiv {
@@ -64,15 +64,27 @@ font-family: 'Caesar Dressing', cursive;
      z-index: 1;
 }
 
-.avatarDiv{
+#title {
+    font-size: 100px;
+    padding-left: 90px;
+    color: #e5ffcc;
+}
+
+#createGame, #joinGame {
+    background-color: #5c8843;
+    border-color: #336600;
+}
+
+.avatarDiv {
     font-family: 'Caesar Dressing', cursive;
 
 }
 
-#whiteJumbo{
+#whiteJumbo {
     font-family: 'Caesar Dressing', cursive;
-    color: white;
-
+    color: #e5ffcc;
+    font-size: 100px;
+    padding-left: 90px;
 }
 
     .bodyDiv {
@@ -81,12 +93,10 @@ font-family: 'Caesar Dressing', cursive;
         width: 85%;
         background-color: grey;
         border-style: solid;
-        border-width: 10px;
+        border-width: 5px;
         color: white;
-        border-color: #00602f;
-        /*border-color: #00602f;*/ 
-    border-color: black;
-        overflow: scroll;
+        border-color: #0f1c05;
+        overflow: auto;
     }
 
     .chooseYourAvatarDiv {
@@ -95,9 +105,9 @@ font-family: 'Caesar Dressing', cursive;
         width: 85%;
         background-color: grey;
         border-style: solid;
-        border-width: 10px;
+        border-width: 5px;
         
-        border-color: #00602f;
+        border-color: #0f1c05;
         
     }
 
@@ -112,7 +122,7 @@ font-family: 'Caesar Dressing', cursive;
     .joinableGamesTable .bodyDiv {
         font-family: 'Caesar Dressing', cursive;
 
-        overflow: scroll;
+        overflow: auto;
         height:100%;
     }
 
@@ -128,7 +138,9 @@ font-family: 'Caesar Dressing', cursive;
 
     #whiteJumanji{
         font-family: 'Caesar Dressing', cursive;
-        color:white;
+        color: #e5ffcc;
+        font-size: 100px;
+        padding-left: 90px;
     }
 
     .resumeTable{
@@ -158,7 +170,7 @@ font-family: 'Caesar Dressing', cursive;
     font-family: 'Caesar Dressing', cursive;
     color: white;
     font-size: 14px;
-    background-color: grey; opacity: 0.8;
+    background-color: #5c8843;; opacity: 0.8;
     
 }
 
@@ -208,7 +220,8 @@ font-family: 'Caesar Dressing', cursive;
     position: absolute;
     top: 60%;
     left: 72%;
-    border: 2px solid black;
+    border: 2px solid #5c8843;
+    border-radius: 5px;
 }
 
 #btnGreen {
@@ -218,7 +231,10 @@ font-family: 'Caesar Dressing', cursive;
 
 #diceBtn {
     font-family: 'Caesar Dressing', cursive;
-    background-color: grey;
+    /* background-color: grey;
+    color: white; */
+    background-color: #5c8843;
+    border-color: #336600;
     color: white;
     position: absolute;
     top: 75%;
@@ -234,11 +250,16 @@ font-family: 'Caesar Dressing', cursive;
 }
 
 #result {
-    font-family: 'Caesar Dressing', cursive;
+    font-family: 'sans-serif';
+    font-size: 24px;
     width: 80px;
-    height: 40px;
-    border: 1px solid white;
+    height: 30px;
+    background-color: #5c8843;; opacity: 0.8;
+    border-color: #336600;
     color: white;
+    position: absolute;
+    top: 75%;
+    left: 75%;
 }
 
 .choice {
@@ -254,4 +275,22 @@ font-family: 'Caesar Dressing', cursive;
 
 #openMod {
     margin-left: 45%;
+}
+
+#playBtn {
+    background-color: #5c8843;
+    border-color: #336600;
+    font-family: 'Caesar Dressing', cursive;
+    position: absolute;
+    top: 30%;
+    left: 5%;
+}
+
+#home {
+    background-color: #5c8843;
+    border-color: #336600;
+    font-family: 'Caesar Dressing', cursive;
+    position: absolute;
+    top: 20%;
+    left: 5%;
 }

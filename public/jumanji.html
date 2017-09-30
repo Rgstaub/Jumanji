@@ -306,11 +306,12 @@
 
                     $("#RollBtn").on("click", function() {
                         $("#diceBtn").fadeToggle("fast");
+                        $("#result").css("display", "none");
                     });
 
                     //modal button appears when it is the player's turn
                     if (gameObj.gameTurn === gameObj.myTurn) {
-                            $("#playBtn").fadeIn("slow");
+                            $("#playBtn").fadeToggle("slow");
                     };
 
                     //function to update player position
@@ -332,6 +333,7 @@
                     
                     //when dice are rolled- function is called to update position
                     $("#diceBtn").on("click", function() {
+                        $("#result").fadeToggle("slow");
                         updatePos();
                     });
             
