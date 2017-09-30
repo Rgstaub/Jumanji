@@ -262,6 +262,34 @@
                         $("#playBtn").fadeIn("slow");
                     };
 
+                    gameObj.puzzle.choices.forEach(function(choices) {
+                        var container = $(`<div class="choice" data-turnId="${gameObj.turnId}" data-choiceId="${choices.choiceId}" ></div>`);
+                        container.text(choices.text);
+                        $('#puzzleChoices').append(container);
+                        
+
+                        $(document).on("click", ".choice", function() {
+                            $(this).css("background-color", "#A0A0A0");
+                            var selectedChoice = $(this).attr("data-choiceId");
+        
+                            var choiceAction;
+                            var choiceValue;
+                            var choiceText;
+        
+                            gameObj.puzzle.choices.forEach(function(choice) {
+                                if (choice.choiceId == selectedChoice) {
+                                    choiceAction = choice.action;
+                                    choiceValue = choice.value;
+                                    choiceText = choice.result;                                
+                                }
+                            })
+
+
+                            $("#choiceResult").text(choiceText);
+                            $("#choiceValue").text(choiceValue);
+                        
+                        });
+
                 //call function to draw canvas
                     draw();
 
@@ -283,38 +311,7 @@
 
                     $("#puzzleDescrip").text(gameObj.puzzle.description);
 
-                    gameObj.puzzle.choices.forEach(function(choices) {
-                    var container = $(`<div class="choice" data-turnId="${gameObj.turnId}" data-choiceId="${choices.choiceId}" ></div>`);
-                    container.text(choices.text);
-                    $('#puzzleChoices').append(container);
-                    
 
-                    $(document).on("click", ".choice", function() {
-                        $(this).css("background-color", "#A0A0A0");
-                        var selectedChoice = $(this).attr("data-choiceId");
-    
-                        var choiceAction;
-                        var choiceValue;
-                        var choiceText;
-
-
-    
-                        gameObj.puzzle.choices.forEach(function(choice) {
-                            console.log("choice.id: "+ choice.choiceId);
-                            console.log("selected: " + selectedChoice);
-                            if (choice.choiceId == selectedChoice) {
-                                console.log("This one matched");
-                                choiceAction = choice.action;
-                                choiceValue = choice.value;
-                                choiceText = choice.result;                                
-                            }
-                        })
-
-
-                        $("#choiceResult").text(choiceText);
-                        $("#choiceValue").text(choiceValue);
-                    
-                    });
 
                     $("#RollBtn").on("click", function() {
                         $("#diceBtn").fadeIn("slow");
