@@ -41,7 +41,7 @@ font-family: 'Caesar Dressing', cursive;
         width: 85%;
         background-color: grey;
         border-style: solid;
-        border-width: 10px;
+        border-width: 5px;
         color: white;
         /*border-color: #00602f;*/ 
     border-color: #0f1c05;
@@ -53,6 +53,59 @@ font-family: 'Caesar Dressing', cursive;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    border-color: #0f1c05;
+}
+
+#submitBtn {
+    background-color: #5c8843;
+    border-color: #336600;
+}
+
+#openMod {
+    background-color: #5c8843;
+    border-color: #336600;
+}
+
+.modal-body {
+    font-weight: bold;
+}
+
+#j {
+    font-family: 'Caesar Dressing', cursive;
+    font-size: 26px;
+}
+
+#beware {
+    font-family: 'Caesar Dressing', cursive;
+    color: red;
+    font-size: 24px;
+}
+
+#part1 {
+    font-family: 'Caesar Dressing', cursive;
+    font-size: 22px;
+}
+
+#part2 {
+    font-weight: bold;
+    font-size: 14px;
+    color: red;
+}
+
+#part3 {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#part4 {
+    font-weight: bold;
+    font-size: 14px;
+    color: red;
+}
+
+#part5 {
+    font-weight: bold;
+    font-size: 16px;
 }
         
 
@@ -238,7 +291,7 @@ font-family: 'Caesar Dressing', cursive;
     color: white;
     position: absolute;
     top: 75%;
-    left: 75%;
+    left: 72%;
 }
 
 .fixed{
@@ -254,12 +307,13 @@ font-family: 'Caesar Dressing', cursive;
     font-size: 24px;
     width: 80px;
     height: 30px;
-    background-color: #5c8843;; opacity: 0.8;
-    border-color: #336600;
+    /* background-color: #5c8843;; opacity: 0.8; */
+    /* border-color: #336600; */
+    border: 1px solid white;
     color: white;
     position: absolute;
     top: 75%;
-    left: 75%;
+    left: 78%;
 }
 
 .choice {
@@ -286,7 +340,7 @@ font-family: 'Caesar Dressing', cursive;
     left: 5%;
 }
 
-#home {
+#homeBtn {
     background-color: #5c8843;
     border-color: #336600;
     font-family: 'Caesar Dressing', cursive;

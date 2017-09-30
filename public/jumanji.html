@@ -161,7 +161,7 @@
     <img id="sword" src="assets/img/sword.png" style="display: none">
 
     <!-- Link to index.html -->
-    <a href="index.html"><button id="home" class="btn btn-primary btn-lg">Home</button></a>
+    <a href="index.html"><button id="homeBtn" class="btn btn-primary btn-lg">Home</button></a>
 
     <!-- Intro Modal -->
     <!-- Button trigger modal -->
@@ -305,13 +305,13 @@
                     });
 
                     $("#RollBtn").on("click", function() {
-                        $("#diceBtn").fadeToggle("fast");
+                        $("#diceBtn").fadeIn("slow");
                         $("#result").css("display", "none");
                     });
 
                     //modal button appears when it is the player's turn
                     if (gameObj.gameTurn === gameObj.myTurn) {
-                            $("#playBtn").fadeToggle("slow");
+                            $("#playBtn").fadeIn("slow");
                     };
 
                     //function to update player position
