@@ -126,7 +126,7 @@ app.post('/joingame/select/:gameId/:userId/:avatar?', (req, res) => {
       // Set that player's position to 0
       jumanji.setPlayerPos(player.id, 0, (playerId) => {
         // Set up each new player to have one of each item
-        jumanji.initializeInventory(playerId, (playerId) => {
+        //jumanji.initializeInventory(playerId, (playerId) => {
           // Set that player's turn to 1
           jumanji.setPlayerTurn(playerId, 1, () => {
             console.log("turn set successfully");
@@ -142,7 +142,7 @@ app.post('/joingame/select/:gameId/:userId/:avatar?', (req, res) => {
               }
             })
           })
-        })
+        //})
       })
     })
   }

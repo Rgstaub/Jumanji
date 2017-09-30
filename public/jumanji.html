@@ -291,14 +291,21 @@
                         var choiceAction;
                         var choiceValue;
                         var choiceText;
+
+
     
                         gameObj.puzzle.choices.forEach(function(choice) {
-                            if (choice.choiceId = selectedChoice) {
+                            console.log("choice.id: "+ choice.choiceId);
+                            console.log("selected: " + selectedChoice);
+                            if (choice.choiceId == selectedChoice) {
+                                console.log("This one matched");
                                 choiceAction = choice.action;
                                 choiceValue = choice.value;
-                                choiceText = choice.result;
-                        }
-                    })
+                                choiceText = choice.result;                                
+                            }
+                        })
+
+
                         $("#choiceResult").text(choiceText);
                         $("#choiceValue").text(choiceValue);
                     
