@@ -74,7 +74,12 @@ app.get('/resumegames/:userId', (req, res) => {
     },
     include: {
       model: db.games,
-      where: {state: "active"},
+      where: {
+        $or:{
+          state: "active",
+          state: "waiting"
+        }
+      },
       include: [db.players]
     }
   }).then( myPlayers => {
@@ -199,7 +204,7 @@ app.post('/endturn/:playerId/:position/:turn', (req, res) => {
   jumanji.setPlayerPos(playerId, position, () => {
     
     jumanji.setPlayerTurn(playerId, turn, (gameId) => {
-      jumanji.checkGameTurn(gameId, () => {
+      jumanji.checkGameTurn(gameId, ( ) => {
         jumanji.checkForWinner(position, gameId, (response) => {
           res.json(response);
         })
