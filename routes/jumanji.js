@@ -288,7 +288,7 @@ const jumanji = {
           cb(true);
         })
       })
-    }
+    } else cb(false);
   },
 
   addToInventory: (playerId, itemId, cb) => {
@@ -333,6 +333,8 @@ const jumanji = {
     }).then(game => {
       let advanceTurn = true;
       game.players.forEach(player => {
+        console.log(player);
+        
         if (player.turn <= game.currentTurn) {
           console.log("Not there yet");
           advanceTurn = false;
@@ -345,9 +347,11 @@ const jumanji = {
             id: gameId
           }
         }).then(status => {
+          console.log(newGameTurn);
+          console.log("Update game turn status: " + status);
           cb(newGameTurn);
         })
-      }
+      } else cb("no turn change");
     })
   },
 
