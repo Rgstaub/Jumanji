@@ -21,7 +21,6 @@ module.exports = (app) => {
 
 // This returns an array of unstarted games and their properties
 app.get('/joingame/findgames', (req, res) => {
-  console.log(myData.myId);
   db.games.findAll({
     where: {
       state: "waiting"
@@ -34,25 +33,17 @@ app.get('/joingame/findgames', (req, res) => {
     let filteredGames = [];
     let gameIds = [];
     games.forEach(game => {
-      console.log(game.gameName);
+      
       let userIds = [];
-
       game.players.forEach(player => {
         console.log("player loop")
         userIds.push(player.userId);
       })
-      console.log("finished player loop")
-      console.log(userIds);
-
-      console.log(userIds.indexOf(parseInt(myData.myId)));
       if (userIds.indexOf(parseInt(myData.myId)) === -1) {
         filteredGames.push(game);
         gameIds.push(game.id);
-      } else {
-        console.log("skipped game")
       }
     })
-    console.log(gameIds); 
     db.players.findAll({
       where: {
         gameId: gameIds
@@ -89,11 +80,9 @@ app.get('/resumegames/:userId', (req, res) => {
     myPlayers.forEach(myPlayer => {
       gameIds.push(myPlayer.gameId);
       myPlayer.game.winningPlayer_id = myPlayer.id;
-
       games.push(myPlayer.game);
-      
     })
-    //res.json(games);
+
     db.players.findAll({
       where: {
         gameId: gameIds
@@ -136,19 +125,22 @@ app.post('/joingame/select/:gameId/:userId/:avatar?', (req, res) => {
     jumanji.addPlayer(req.params.gameId, userId, req.params.avatar, (player) => {
       // Set that player's position to 0
       jumanji.setPlayerPos(player.id, 0, (playerId) => {
-        // Set that player's turn to 1
-        jumanji.setPlayerTurn(playerId, 1, () => {
-          console.log("turn set successfully");
-          // Check if the game now has filled all its available spot.s. Start if so
-          jumanji.checkForStart(req.params.gameId, (start) => {
-            if (start) {
-              // Load the game board
-              jumanji.loadTurn(player.id, (result) => {
-                res.json(result);
-              });
-            } else {
-              res.json(player.id);
-            }
+        // Set up each new player to have one of each item
+        jumanji.initializeInventory(playerId, (playerId) => {
+          // Set that player's turn to 1
+          jumanji.setPlayerTurn(playerId, 1, () => {
+            console.log("turn set successfully");
+            // Check if the game now has filled all its available spot.s. Start if so
+            jumanji.checkForStart(req.params.gameId, (start) => {
+              if (start) {
+                // Load the game board
+                jumanji.loadTurn(player.id, (result) => {
+                  res.json(result);
+                });
+              } else {
+                res.json(player.id);
+              }
+            })
           })
         })
       })

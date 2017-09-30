@@ -291,6 +291,29 @@ const jumanji = {
     } else cb(false);
   },
 
+  initializeInventory: (playerId, cb) => {
+    for (let i = 1; i < 4; i++) {
+      db.inventories.create({
+        itemId: i,
+        playerId: playerId
+      }).then(result => {
+        console.log(result);
+        cb(playerId);
+      })
+    }
+  },
+
+  getInventory: (playerId, cb) => {
+    db.inventories.findAll({
+      where: {
+        playerId: playerId
+      },
+      include: [db.items]
+    }).then(inventories => {
+      cb(inventories);
+    })
+  },
+
   addToInventory: (playerId, itemId, cb) => {
     db.inventories.create({
       playerId: playerId,
