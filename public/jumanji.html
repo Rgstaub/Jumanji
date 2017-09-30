@@ -258,7 +258,7 @@
                     console.log(gameObj);
 
                     //modal button appears when it is the player's turn
-                    if (gameObj.gameTurn === gameObj.myTurn) {
+                    if (gameObj.gameTurn == gameObj.myTurn) {
                         $("#playBtn").fadeIn("slow");
                     };
 
@@ -289,6 +289,7 @@
                             $("#choiceValue").text(choiceValue);
                         
                         });
+                    })
 
                 //call function to draw canvas
                     draw();
@@ -333,7 +334,7 @@
                         endTurn(myId, newPos, gameObj.myTurn);
 
                     }
-                    })
+
                     })
 
                     
