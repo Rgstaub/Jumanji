@@ -66,10 +66,10 @@ app.get('/resumegames/:userId', (req, res) => {
     include: {
       model: db.games,
       where: {
-        $or:{
-          state: "active",
-          state: "waiting"
-        }
+        // $and:{
+          state: ["active", "waiting"]
+        //   state: "waiting"
+        // }
       },
       include: [db.players]
     }
