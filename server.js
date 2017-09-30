@@ -1,4 +1,7 @@
 
+
+let seed = require('./config/seed.js');
+
 // =====================| Server |==============================
 
 // Set up dependencies
