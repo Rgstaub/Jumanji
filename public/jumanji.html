@@ -257,6 +257,11 @@
                 $.get(string).done(function(gameObj) {
                     console.log(gameObj);
 
+                    //modal button appears when it is the player's turn
+                    if (gameObj.gameTurn === gameObj.myTurn) {
+                        $("#playBtn").fadeIn("slow");
+                    };
+
                 //call function to draw canvas
                     draw();
 
@@ -316,10 +321,7 @@
                         $("#result").css("display", "none");
                     });
 
-                    //modal button appears when it is the player's turn
-                    if (gameObj.gameTurn === gameObj.myTurn) {
-                            $("#playBtn").fadeIn("slow");
-                    };
+
 
                     //function to update player position
                     updatePos = function() {
