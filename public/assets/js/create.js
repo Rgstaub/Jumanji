@@ -28,8 +28,8 @@ $(document).ready(function() {
 					$.ajax({
 						method: "POST",
 						url: selectUrl
-					}).done(function(response) {
-						sessionStorage.setItem("jumanjiPlayerId", response.myPlayerId);
+					}).done(function(playerId) {
+						sessionStorage.setItem("jumanjiPlayerId", playerId);
 						var redirectUrl = "http://" + window.location.hostname + ":" + window.location.port + "/jumanji.html";
 						console.log(redirectUrl);
 						window.location.replace(redirectUrl);

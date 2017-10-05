@@ -43,8 +43,8 @@ $(document).ready(function() {
     }
     console.log(joinStr);
 
-    $.post(joinStr).done(function(response) {
-      console.log(response);
+    $.post(joinStr).done(function(playerId) {
+      sessionStorage.setItem("jumanjiPlayerId", playerId);
       var redirectUrl = "http://" + window.location.hostname + ":" + window.location.port + "/jumanji.html";
       console.log(redirectUrl);
       window.location.replace(redirectUrl);

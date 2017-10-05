@@ -20,11 +20,5 @@ $(document).ready(function() {
     $.post(submitStr).done(function(response) {
       console.log(response);
     })
-    
   })
-
-
-
-
-
 })

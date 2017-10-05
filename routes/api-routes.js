@@ -135,7 +135,7 @@ app.post('/joingame/select/:gameId/:userId/:avatar?', (req, res) => {
               if (start) {
                 // Load the game board
                 jumanji.loadTurn(player.id, (result) => {
-                  res.json(result);
+                  res.json(player.id);
                 });
               } else {
                 res.json(player.id);
