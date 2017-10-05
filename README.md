@@ -4,6 +4,8 @@
 
 <p>Jumanji is a full-stack web application based on the movie and board game of the same name</p>
 
+<a href="http://guarded-tor-71480.herokuapp.com/">See the game on Heroku</a>
+
 <ul><h2>Team:</h2>
   <li>Angela Polly - game board, front-end logic, design, art</li>
   <li>Daniel McGeough - creative content</li>
