@@ -2,6 +2,8 @@
 
 <h1>Welcome to the Jungle!</h1>
 
+<img src="demo.gif" alt="GIF of game in action">
+
 <p>Jumanji is a full-stack web application based on the movie and board game of the same name</p>
 
 <a href="http://guarded-tor-71480.herokuapp.com/">See the game on Heroku</a>
